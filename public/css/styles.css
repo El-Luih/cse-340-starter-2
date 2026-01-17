@@ -1,6 +1,249 @@
-/******* Change Box Model ***************/
+/******* Global Variables ***************/
+:root {
+  --primary-color: rgb(36,35,51);
+  --secondary-color: rgb(0,176,211);
+  --faded-color: rgba(255, 255, 255, 0.785);
+  --primary-font: "Roboto", sans-serif;
+  --secondary-font: "Noto Serif", serif;
+}
+
+/******* Global Styling ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 98%;
+  margin: 0 auto;
+  font-family: var(--primary-font);
+  color: var(--primary-color);
+}
+
+.section {
+  margin-bottom: 1.3rem;
+}
+
+/******* Small Screens Styling ***************/
+/* Header */
+
+header {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 1rem 0.5rem;
+}
+
+.siteName a, #tools a {
+  text-decoration: none;
+  color: var(--primary-color);
+  text-wrap: nowrap;
+}
+
+.siteName {
+  display: block;
+}
+
+.siteName a {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+#tools a {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* Navigation Menu */
+
+nav ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  padding: 1rem 0;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+nav ul li {
+  list-style: none;
+  text-align: center;
+}
+/* Body */
+
+h1, h2 {
+  font-family: var(--secondary-font);
+  padding: 1rem 0;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+.button {
+  background-color: var(--secondary-color);
+  padding: 0.6rem;
+  display: inline-block;
+  font-weight: 900;
+  border: outset 0.1rem white;
+}
+
+.hero-article {
+  position: relative;
+}
+
+.hero-article img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-article .text-box {
+  position: absolute;
+  top: 0;
+  padding: 0.5rem;
+  background-color: var(--faded-color);
+}
+
+.text-box p {
+  color: var(--secondary-color);
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.text-box strong {
+  font-family: var(--secondary-font);
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+}
+
+.reviews-list {
+  display: block;
+  list-style-position: inside;
+}
+
+.review {
+  margin: 0 0 0.5rem 0.4rem;
+}
+
+.upgrades-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem 0.5rem;
+  list-style: none;
+}
+
+.upgrade-box {
+  height: 8rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.upgrade-box figure {
+  background-color: var(--secondary-color);
+  border: thin solid var(--primary-color);
+  width: 100%;
+  height: 70%;
+  display: grid;
+  place-items: center;
+}
+
+.upgrade-box img {
+  display: block;
+  margin: 0 auto;
+}
+
+.upgrade-box a {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Footer */
+
+footer {
+  padding: 1rem 0.5rem;
+}
+
+/******* Large Screens Styling ***************/
+@media screen and (min-width: 600px) {
+  /* Header */
+  header {
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+  }
+  /* Navigation Menu */
+
+  /* Body */
+  html {
+    padding: 2% 8%;
+    background-image: url("/images/site/small_check.jpg");
+  }
+
+  body {
+    padding: 0.8rem;
+    background-color: white;
+    border: 0.2rem solid var(--secondary-color);
+    border-radius: 5px;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .text-box {
+    left: 5%;
+  }
+
+  .text-box p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .text-box strong {
+    font-size: 2rem;
+  }
+
+  .button {
+    font-size: 1.3rem;
+    padding: 0.8rem 2.2rem;
+  }
+
+  .car-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 1.2rem;
+  }
+
+  .car-reviews {
+    grid-column: 2 / 3;
+    width: 95%;
+  }
+
+  .review {
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+  }
+
+  .upgrades-roster {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+
+  /* Footer */
 }
