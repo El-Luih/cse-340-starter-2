@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "CSE 340 App DB",
+            "connectString": "postgresql://lamr_cse340_database:rCpQIBq7p0HiMJ6rpXzoLRn29veVm5Sb@dpg-d5l0b7be5dus73fp55u0-a.ohio-postgres.render.com/lamr_cse340_database"
+        }
+    ]
+}
