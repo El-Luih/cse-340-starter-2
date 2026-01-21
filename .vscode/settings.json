@@ -11,7 +11,7 @@
             "server": "localhost",
             "driver": "PostgreSQL",
             "name": "CSE 340 App DB",
-            "connectString": "postgresql://lamr_cse340_database:rCpQIBq7p0HiMJ6rpXzoLRn29veVm5Sb@dpg-d5l0b7be5dus73fp55u0-a.ohio-postgres.render.com/lamr_cse340_database"
+            "connectString": "postgresql://cse340_3:vzo1ICyb31e8wvcdHlLWaUdrUEk7poSe@dpg-d5o2lker433s73fqs180-a.ohio-postgres.render.com/cse340_3_1c13"
         }
     ]
 }
