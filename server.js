@@ -27,7 +27,7 @@ app.set("layout", "./layouts/layout")
 //Static files routes
 app.use(static)
 //Inventory routes
-app.use("/inv", inventoryRoute)
+app.use("/inv", utilities.handleErrors(inventoryRoute))
 //Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // File Not Found Route - must be last route in list
