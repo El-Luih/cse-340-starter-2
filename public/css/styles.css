@@ -58,7 +58,7 @@ header {
 }
 
 .siteName a {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 
@@ -71,6 +71,7 @@ header {
 
 nav ul{
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
@@ -342,7 +343,15 @@ h1#error-title {
     display: grid;
     grid-template-columns: 6fr 1fr;
   }
+
+  .siteName a {
+    font-size: 2.5rem;
+  }
   /* Navigation Menu */
+
+  nav ul{
+    flex-wrap: nowrap;
+  }
 
   /* Body */
   html {
