@@ -25,7 +25,7 @@ app.set("layout", "./layouts/layout")
  * Routes
  *************************/
 //Static files routes
-app.use(static)
+app.use(utilities.handleErrors(static))
 //Inventory routes
 app.use("/inv", utilities.handleErrors(inventoryRoute))
 //Index route
