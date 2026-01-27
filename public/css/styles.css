@@ -26,8 +26,16 @@ body {
   color: var(--primary-color);
 }
 
+main {
+  margin-bottom: 2rem;
+}
+
 .section {
   margin-bottom: 1.3rem;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 /******* Small Screens Styling ***************/
@@ -66,7 +74,7 @@ nav ul{
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
-  padding: 1rem 0;
+  padding: 0;
   background-color: var(--primary-color);
   color: white;
 }
@@ -74,6 +82,21 @@ nav ul{
 nav ul li {
   list-style: none;
   text-align: center;
+  width: 100%;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  padding: 1rem;
+  display: block;
+  border: 1px solid var(--primary-color);
+}
+
+nav ul li a:hover {
+  background-color: white;
+  color: var(--primary-color);
 }
 /* Body */
 
@@ -83,7 +106,7 @@ h1, h2 {
 }
 
 h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 .button {
@@ -172,7 +195,145 @@ h1 {
 
 footer {
   padding: 1rem 0.5rem;
+  border-top: thin solid var(--primary-color);
+  text-align: center;
 }
+
+footer p {
+  font-size: 1.1rem;
+}
+
+/*Classification Grid Styling*/
+h1#classification-title {
+  text-align: center;
+}
+
+#inv-display {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem 0;
+  place-items: center;
+}
+
+#inv-display li {
+  width: 90%;
+  list-style: none;
+  max-width: 300px;
+  border: 2px solid black;
+  padding: 0.5rem;
+}
+
+#inv-display li img {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#inv-display li > a {
+  margin: 0 0 1rem;
+}
+
+#inv-display .namePrice{
+  display: grid;
+  align-content: end;
+}
+
+#inv-display .namePrice a {
+  color: var(--primary-color);
+  display: block;
+  text-align: center;
+}
+
+#inv-display .namePrice span {
+  font-weight: bold;
+  text-align: center;
+  display: block;
+}
+
+/*Vehicle Details Styling*/
+h1#details-title {
+  text-align: center;
+}
+
+#inv-details-body{
+  width: 90%;
+  margin: 0 auto;
+}
+
+#inv-details-body .vehicle-image.main {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+#inv-details-body .vehicle-description {
+  padding: 0 0.5rem;
+  width: 95%;
+  margin: 0 auto 1rem;
+}
+
+#inv-details-body .vehicle-description h2{
+  padding-bottom: 0;
+  text-align: center;
+}
+
+#inv-details-body .vehicle-description h3 {
+  text-align: center;
+  padding-bottom: 0.2rem;
+  margin: 0 auto 0.8rem;
+  border-bottom: thin solid var(--primary-color);
+  font-size: 1.5rem;
+}
+
+#inv-details-body .vehicle-description .data {
+  margin-bottom: 1rem;
+}
+
+#inv-details-body .vehicle-description .data p {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.2rem 0.5rem;
+}
+
+#inv-details-body .vehicle-description .data span.bold {
+  justify-self: end;
+}
+
+#inv-details-body .vehicle-description .data span.content {
+  justify-self: start;
+}
+
+.vehicle-description .description-text {
+  margin: 0 auto;
+  width: 75%;
+}
+
+/*Error Styling*/
+h1#error-title {
+  font-size: 5rem;
+  text-align: center;
+  padding-bottom: 0;
+}
+
+#error-image {
+  display: block;
+  width: 25%;
+  margin: -1rem auto 2rem;
+}
+
+#error-message {
+  text-align: center;
+  font-weight: bold;
+  margin: 0 auto 0.5rem;
+}
+
+#errFlavor {
+  text-align: center;
+  font-size: 0.5rem;
+}
+
+
+
 
 /******* Large Screens Styling ***************/
 @media screen and (min-width: 600px) {
@@ -246,4 +407,85 @@ footer {
   }
 
   /* Footer */
+
+  /*Classification Grid Styling*/
+
+  h1#classification-title {
+    padding: 2rem;
+  }
+
+  #inv-display {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 0.5rem;
+  }
+
+  #inv-display li {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #inv-display li img {
+    margin-bottom: 0;
+  }
+
+  #inv-display li h2 {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+  }
+
+  #inv-display li > a {
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #inv-display .namePrice {
+    flex-grow: 1;
+  }
+
+  /*Vehicle Details Styling*/
+
+  #inv-details-body{
+    max-width: 620px;
+    border: thin solid var(--primary-color);
+    border-radius: 5px;
+    padding: 0.5rem;
+  }
+
+  /*Error Styling*/
+
+  h1#error-title {
+    font-size: 8rem;
+    padding: 3rem 0 0;
+  }
+
+  #error-image {
+    margin-top: -2.2rem;
+  }
+
+  #error-message {
+    font-size: 1.5rem;
+    width: 60%;
+  }
+}
+
+/*LARGER screens*/
+@media screen and (min-width: 1000px) {
+  /*Classification Grid Styling*/
+  #inv-display {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  /*Error Styling*/
+  h1#error-title {
+    font-size: 15rem;
+  }
+
+  #error-image {
+    max-width: 250px;
+    margin-top: -4rem;
+  }
 }
