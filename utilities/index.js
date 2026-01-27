@@ -76,6 +76,10 @@ Util.buildVehicleDetails = async function (vehicle) {
       <h3 class="price">$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</h3>
       <div class="data">
         <p class="rows">
+          <span class="bold">Class: </span>
+          <span class="content">${vehicle.classification_name}</span>
+        </p>
+        <p class="rows">
           <span class="bold">Mileage: </span>
           <span class="content">${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</span>
         </p>
