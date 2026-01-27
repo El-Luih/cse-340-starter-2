@@ -1,5 +1,7 @@
 <% const d = new Date()
 let year = d.getFullYear() %>
 <footer>
-    <p class="copyright">&copy; <%= year %>, CSE 340 App</p>    
+    <p class="copyright">&copy; <%= year %>, CSE 340 App</p>
+    <%# Uses the Error route -> /routes -> errorRoute.js -> errorController.js -> throw500TypeError%>
+    <a id="errorLink" title="This link triggers a 500-type error" href="/error/500">---TRIGGER 500-TYPE ERROR---</a>
 </footer>
