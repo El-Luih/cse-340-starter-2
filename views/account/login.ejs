@@ -1,0 +1,14 @@
+<h1 id="login-title"><%= title %> </h1>
+<div class="flash-messages"><%- messages() %></div>
+<form id="login-form">
+    <label>
+        <span class="label-field-name">Email:</span>
+        <input type="email" name="account_email" id="account_email" required placeholder="this-is@myemail.com">
+    </label>
+    <label>
+        <span class="label-field-name">Password:</span>
+        <input type="password" name="account_password" id="account_password" required placeholder="sEcur3p@ssw0rd">
+    </label>
+    <button type="submit">LOGIN</button>
+    <p id="no-account">No account? <a id="registration-link" href="../account/registration">Sign Up</a></p>
+</form>
