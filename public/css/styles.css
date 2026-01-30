@@ -545,17 +545,38 @@ h1#error-title {
 /*LARGER screens*/
 @media screen and (min-width: 1000px) {
   /*Classification Grid Styling*/
+  
+
   #inv-display {
     grid-template-columns: 1fr 1fr 1fr;
   }
 
+  /*Vehicle Details*/
+  #inv-details-body{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    max-width: 850px;
+  }
+
+  .vehicle-description .description-text{
+    padding: 0;
+  }
+
+  #inv-details-body .vehicle-image.main {
+    display: grid;
+    align-self: center;
+    max-height: 300px;
+    width: auto;
+  }
+
+
   /*Error Styling*/
   h1#error-title {
-    font-size: 15rem;
+    font-size: 10rem;
   }
 
   #error-image {
     max-width: 250px;
-    margin-top: -4rem;
+    margin-top: -2rem;
   }
 }
