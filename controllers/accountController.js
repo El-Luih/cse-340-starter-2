@@ -40,7 +40,7 @@ accountController.registerAccount = async function (req, res, next) {
     if (registrationResults) {
         req.flash(
             "notice",
-            `Congratualtions, you\'re registered ${account_firstname}. Please log in.`
+            `Congratulations, you\'re registered ${account_firstname}. Please log in.`
         )
         res.status(201).render("account/login", {
             title: "Login",
@@ -53,7 +53,8 @@ accountController.registerAccount = async function (req, res, next) {
         )
         res.status(501).render("account/register", {
             title: "Registration",
-            nav
+            nav,
+            errors: null
         })
     }
 }
