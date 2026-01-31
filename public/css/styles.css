@@ -3,6 +3,7 @@
   --primary-color: rgb(36,35,51);
   --secondary-color: rgb(0,176,211);
   --faded-color: rgba(255, 255, 255, 0.785);
+  --invalid-color: rgba(255, 125, 125, 0.64);
   --primary-font: "Roboto", sans-serif;
   --secondary-font: "Noto Serif", serif;
 }
@@ -344,6 +345,18 @@ h1#login-title,
   display: block;
 }
 
+#login-form input:required:invalid,
+#login-form input:focus:invalid,
+#registration-form input:required:invalid,
+#registration-form input:focus:invalid{
+  background-color: var(--invalid-color);
+}
+
+#login-form input::placeholder,
+#registration-form input::placeholder{
+  color: rgba(255, 255, 255, 0.605);
+}
+
 #login-form input,
 #registration-form input {
   padding: 0.5rem;
@@ -371,9 +384,9 @@ h1#login-title,
   color: white;
 }
 
-#registration-form .form-indications {
+.form-indications {
   width: 80%;
-  margin: 1rem auto 0;
+  margin: 1rem auto;
   font-size: 0.7rem;
 }
 

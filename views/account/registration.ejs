@@ -15,7 +15,7 @@
     </label>
     <label>
         <span class="label-field-name">Password:</span>
-        <input type="password" name="account_password" id="account_password" required placeholder="sEcur3p@ssw0rd">
+        <input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd">
     </label>
     <button type="submit">Register</button>
     <ul class="form-indications">
@@ -26,6 +26,7 @@
                 <li>contain at least 1 capital letter.</li>
                 <li>contain at least 1 number.</li>
                 <li>contain at least 1 special character.</li>
+                <li>not contain whitespaces.</li>
             </ul>
         </li>
     </ul>
