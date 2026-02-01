@@ -12,15 +12,15 @@
     <h1 id="registration-title"><%= title %> </h1>
     <label>
         <span class="label-field-name">First Name:</span>
-        <input type="text" name="account_firstname" id="account_firstname" required placeholder="Guy">
+        <input type="text" name="account_firstname" id="account_firstname" required value="<%= locals.account_firstname %>" placeholder="Guy">
     </label>
     <label>
         <span class="label-field-name">Last Name:</span>
-        <input type="text" name="account_lastname" id="account_lastname" required placeholder="A. Good">
+        <input type="text" name="account_lastname" id="account_lastname" required value="<%= locals.account_lastname %>" placeholder="A. Good">
     </label>
     <label>
         <span class="label-field-name">Email Address:</span>
-        <input type="email" name="account_email" id="account_email" required placeholder="a.goodguy@yes.iam">
+        <input type="email" name="account_email" id="account_email" required value="<%= locals.account_email %>" placeholder="a.goodguy@yes.iam">
     </label>
     <label>
         <span class="label-field-name">Password:</span>
