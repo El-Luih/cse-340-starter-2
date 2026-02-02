@@ -27,4 +27,11 @@ router.post(
     utilities.handleErrors(invController.addClassName)
 )
 
+router.post(
+    "/management/inventory",
+    addValidate.invAddingRules(),
+    addValidate.checkVehicleData,
+    utilities.handleErrors(invController.addVehicleToInventory)
+)
+
 module.exports = router;

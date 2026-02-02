@@ -1,0 +1,101 @@
+<h1 id="add-inventory-title"><%= title %> </h1>
+
+<div class="flash-messages">
+    <%- messages() %>
+    <% if (errors) { %>
+        <ul class="error">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+        <%  }) %>
+        </ul>
+    <% } %>
+</div>
+
+<h2 class="title-flavor">Enter the information of the vehicle.</h2>
+
+<form id="add-inventory-form" class="submission-form" action="/inv/management/inventory" method="post">
+    <label>
+        <span class="label-field-name">Vehicle Maker:</span>
+        <input 
+            type="text" 
+            name="inv_make" 
+            id="inv_make"
+            required
+            value="<%= locals.inv_make %>"
+            placeholder="e.g. Ford">
+    </label>
+    <label>
+        <span class="label-field-name">Vehicle Model:</span>
+        <input 
+            type="text" 
+            name="inv_model" 
+            id="inv_model"
+            required
+            value="<%= locals.inv_model %>"
+            placeholder="e.g. Mustang">
+    </label>
+    <label>
+        <span class="label-field-name">Model Year:</span>
+        <input 
+            type="text" 
+            name="inv_year"
+            id="inv_year"
+            pattern="\d{4}"
+            required
+            value="<%= locals.inv_year %>"
+            placeholder="e.g. 2005 (Must be a four digits number)">
+    </label>
+    <div class="selection">
+        <span class="label-field-name">Vehicle Classification:</span>
+        <%- classList %>
+    </div>
+    <label>
+        <span class="label-field-name">Selling Price:</span>
+        <input 
+            type="number" 
+            name="inv_price"
+            id="inv_price"
+            required
+            value="<%= locals.inv_price %>"
+            placeholder="e.g. 70000 (Only numbers)">
+    </label>
+    <label>
+        <span class="label-field-name">Mileage:</span>
+        <input 
+            type="number" 
+            name="inv_miles"
+            id="inv_miles"
+            required
+            value="<%= locals.inv_miles %>"
+            placeholder="e.g. 70000 (Only numbers)">
+    </label>
+    <label>
+        <span class="label-field-name">Vehicle Color:</span>
+        <input 
+            type="text" 
+            name="inv_color"
+            id="inv_color"
+            pattern="[a-zA-Z\- ]+"
+            required
+            value="<%= locals.inv_color %>"
+            placeholder="e.g. Bone White (Only letters, spaces and hyphens)">
+    </label>
+    <label>
+        <span class="label-field-name">Vehicle Description:</span>
+        <textarea
+            name="inv_description"
+            id="inv_description"
+            rows="3"
+            required
+            placeholder="e.g. A very cool car!"><%= locals.inv_description %></textarea>
+    </label>
+    <ul class="form-indications">
+        <li>All fields are required.</li>
+        <li>The Model Year must be lower than 9999.</li>
+        <li>The Selling Price must only be numbers.</li>
+        <li>The Mileage must only be numbers.</li>
+        <li>The Color must be letters, spaces and hyphens.</li>
+        <li>For vehicles of a new classification, add the classification in the classification management tab first.</li>
+    </ul>
+    <button type="submit" class="button">ADD ENTRY</button>
+</form>

@@ -362,26 +362,46 @@ h1#login-title,
   border-radius: 6px;
 }
 
-.submission-form label {
+.submission-form label,
+.submission-form .selection  {
   margin-bottom: 1rem;
   display: block;
 }
 
 .submission-form #label-field-name, 
-.submission-form input {
+.submission-form input,
+.submission-form textarea,
+.submission-form select {
   display: block;
 }
 
 .submission-form input:required:invalid,
-.submission-form input:focus:invalid {
+.submission-form input:focus:invalid,
+.submission-form textarea:required:invalid,
+.submission-form textarea:focus:invalid, 
+.submission-form select:required:invalid,
+.submission-form select:focus:invalid{
   background-color: var(--invalid-color);
 }
 
-.submission-form input::placeholder {
+.submission-form select:required:invalid,
+.submission-form select:focus:invalid{
   color: rgba(255, 255, 255, 0.605);
 }
 
-.submission-form input {
+.submission-form select option {
+  background-color: white;
+  color: black;
+}
+
+.submission-form input::placeholder,
+.submission-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.605);
+}
+
+.submission-form input,
+.submission-form select,
+.submission-form textarea {
   padding: 0.5rem;
   border: none;
   border-radius: 2px;

@@ -1,7 +1,6 @@
 const invModel = require("../models/inventory-model")
 const classModel = require('../models/classification-model') //Most appropriate to add classification entries, since it uses the classification table and nothing else.
 const utilities = require("../utilities/")
-const addValidation = require('../utilities/adding-validation')
 
 const invCont = {}
 
@@ -53,10 +52,12 @@ invCont.buildAddClassView = async function (req, res, next) {
 }
 
 invCont.buildAddInvView = async function (req, res, next) {
-    let nav = await utilities.getNav();
+  let nav = await utilities.getNav();
+  let classList = await utilities.buildClassificationList();
     res.render("inventory/add-inventory", {
       title: "Add Inventory",
       errors: null,
+      classList,
       nav
     })
 }
@@ -68,7 +69,7 @@ invCont.addClassName = async function (req, res, next) {
   const addingResults = await classModel.submitClassName(classification_name)
   let nav = await utilities.getNav()
 
-  if (addingResults) {
+  if (addingResults.rows.length > 0) {
     req.flash(
       "notice",
       `The classification ${classification_name} has been added.`
@@ -87,6 +88,67 @@ invCont.addClassName = async function (req, res, next) {
       title: "Add Classification",
       errors: null,
       nav
+    })
+  }
+}
+
+invCont.addVehicleToInventory = async function (req, res, next) {
+  const { inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id } = req.body
+  
+  const inv_image = "/images/vehicles/no-image.png"
+  const inv_thumbnail = "/images/vehicles/no-image-tn.png"
+  
+  const addingResults = await invModel.submitVehicleInfo(
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id)
+  
+  let nav = await utilities.getNav()
+  let classList = await utilities.buildClassificationList(classification_id)
+
+  if (addingResults.rows.length > 0) {
+    req.flash(
+      "notice",
+      `The vehicle ${inv_make} ${inv_model} ${inv_year} has been added.`
+    )
+    // res.status(201).render("inventory/management", {
+    //   title: "Management Page",
+    //   errors: null,
+    //   nav
+    // })
+    res.redirect("/inv/")
+  } else {
+    req.flash(
+      "error",
+      "Could not add the vehicle."
+    )
+    res.status(501).render("inventory/add-inventory", {
+      title: "Add Inventory",
+      errors: null,
+      classList,
+      nav,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id
     })
   }
 }
