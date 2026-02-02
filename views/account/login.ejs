@@ -1,6 +1,6 @@
 <h1 id="login-title"><%= title %> </h1>
 <div class="flash-messages"><%- messages() %></div>
-<form id="login-form" action="/account/login" method="post">
+<form id="login-form" class="submission-form" action="/account/login" method="post">
     <label>
         <span class="label-field-name">Email:</span>
         <input type="email" name="account_email" id="account_email" required placeholder="this-is@myemail.com">
@@ -21,6 +21,6 @@
             </ul>
         </li>
     </ul>
-    <button type="submit">LOGIN</button>
+    <button type="submit" class="button">LOGIN</button>
     <p id="no-account">No account? <a id="registration-link" href="../account/registration">Sign Up</a></p>
 </form>

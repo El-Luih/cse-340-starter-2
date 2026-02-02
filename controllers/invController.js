@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model")
+const classModel = require('../models/classification-model') //Most appropriate to add classification entries, since it uses the classification table and nothing else.
 const utilities = require("../utilities/")
+const addValidation = require('../utilities/adding-validation')
 
 const invCont = {}
 
@@ -30,6 +32,63 @@ invCont.buildByVehicleId = async function (req, res, next) {
     nav,
     vehicleDetails
   })
+}
+
+////////////Management GET Views////////////
+invCont.buildManagementView = async function (req, res, next) {
+    let nav = await utilities.getNav();
+    res.render("inventory/management", {
+        title: "Management Page",
+        nav
+    })
+}
+
+invCont.buildAddClassView = async function (req, res, next) {
+    let nav = await utilities.getNav();
+    res.render("inventory/add-classification", {
+      title: "Add Classification",
+      errors: null,
+      nav
+    })
+}
+
+invCont.buildAddInvView = async function (req, res, next) {
+    let nav = await utilities.getNav();
+    res.render("inventory/add-inventory", {
+      title: "Add Inventory",
+      errors: null,
+      nav
+    })
+}
+
+////////////Management POST Processors////////////
+invCont.addClassName = async function (req, res, next) {
+  const { classification_name } = req.body
+  
+  const addingResults = await classModel.submitClassName(classification_name)
+  let nav = await utilities.getNav()
+
+  if (addingResults) {
+    req.flash(
+      "notice",
+      `The classification ${classification_name} has been added.`
+    )
+    res.status(201).render("inventory/add-classification", {
+      title: "Add Classification",
+      errors: null,
+      nav
+    })
+  } else {
+    req.flash(
+      "error",
+      "Could not add the classification."
+    )
+    res.status(501).render("inventory/add-classification", {
+      title: "Add Classification",
+      errors: null,
+      nav
+    })
+  }
 }
 
 module.exports = invCont;

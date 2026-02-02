@@ -9,10 +9,9 @@ const accountController = {}
 * *************************************** */
 accountController.buildLogin = async function (req, res, next) {
     let nav = await utilities.getNav()
-    req.flash("notice", "Messages would go here.")
     res.render("account/login", {
-    title: "Login",
-    nav,
+        title: "Login",
+        nav,
     })
 }
 
@@ -36,7 +35,7 @@ accountController.registerAccount = async function (req, res, next) {
         // regular password and cost (salt is generated automatically)
         hashedPassword = await bcrypt.hashSync(account_password, 10)
     } catch (error) {
-        req.flash("notice", 'Sorry, there was an error processing the registration.')
+        req.flash("error", 'Sorry, there was an error processing the registration.')
         res.status(500).render("account/register", {
         title: "Registration",
         nav,
@@ -61,7 +60,7 @@ accountController.registerAccount = async function (req, res, next) {
         })
     } else {
         req.flash(
-            "notice",
+            "error",
             "Sorry, the registration failed."
         )
         res.status(501).render("account/register", {

@@ -4,6 +4,9 @@
   --secondary-color: rgb(0,176,211);
   --faded-color: rgba(255, 255, 255, 0.785);
   --invalid-color: rgba(255, 125, 125, 0.64);
+  --error-flash-color: rgb(140, 0, 0);
+  --warning-flash-color: rgba(172, 115, 0, 0.996);
+  --notice-flash-color: rgb(0, 61, 119);
   --primary-font: "Roboto", sans-serif;
   --secondary-font: "Noto Serif", serif;
 }
@@ -112,11 +115,27 @@ h1 {
 }
 
 .button {
+  font-weight: bold;
+  padding: 0.5rem;
+  width: 30%;
+  max-width: 150px;
+  margin: 0 auto 0.5rem;
+  display: block;
+  border: thin solid white;
+  border-radius: 3px;
+}
+
+#main-button {
   background-color: var(--secondary-color);
   padding: 0.6rem;
   display: inline-block;
   font-weight: 900;
   border: outset 0.1rem white;
+}
+
+#main-button:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .hero-article {
@@ -321,8 +340,19 @@ h1#login-title,
   text-align: center;
 }
 
-#login-form, 
-#registration-form {
+.flash-messages .error {
+  color: var(--error-flash-color);
+}
+
+.flash-messages .warning {
+  color: var(--warning-flash-color);
+}
+
+.flash-messages .notice {
+  color: var(--notice-flash-color);
+}
+
+.submission-form {
   width: 90%;
   max-width: 400px;
   padding: 2rem 1rem 1rem;
@@ -332,48 +362,30 @@ h1#login-title,
   border-radius: 6px;
 }
 
-#login-form label, 
-#registration-form label {
+.submission-form label {
   margin-bottom: 1rem;
   display: block;
 }
 
-#login-form #label-field-name, 
-#login-form input,
-#registration-form #label-field-name, 
-#registration-form input {
+.submission-form #label-field-name, 
+.submission-form input {
   display: block;
 }
 
-#login-form input:required:invalid,
-#login-form input:focus:invalid,
-#registration-form input:required:invalid,
-#registration-form input:focus:invalid{
+.submission-form input:required:invalid,
+.submission-form input:focus:invalid {
   background-color: var(--invalid-color);
 }
 
-#login-form input::placeholder,
-#registration-form input::placeholder{
+.submission-form input::placeholder {
   color: rgba(255, 255, 255, 0.605);
 }
 
-#login-form input,
-#registration-form input {
+.submission-form input {
   padding: 0.5rem;
   border: none;
   border-radius: 2px;
   width: 100%;
-}
-
-#login-form button, 
-#registration-form button{
-  font-weight: bold;
-  padding: 0.5rem;
-  width: 30%;
-  margin: 0 auto 0.5rem;
-  display: block;
-  border: thin solid white;
-  border-radius: 3px;
 }
 
 #login-form #no-account {
@@ -445,6 +457,11 @@ h1#error-title {
     background-image: url("/images/site/small_check.jpg");
   }
 
+  .button:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
   body {
     padding: 0.8rem;
     background-color: white;
@@ -469,7 +486,7 @@ h1#error-title {
     font-size: 2rem;
   }
 
-  .button {
+  #main-button {
     font-size: 1.3rem;
     padding: 0.8rem 2.2rem;
   }
@@ -548,12 +565,6 @@ h1#error-title {
     border: thin solid var(--primary-color);
     border-radius: 5px;
     padding: 0.5rem;
-  }
-
-  /*Login Form Styling*/
-  #login-form button:hover {
-    background-color: var(--primary-color);
-    color: white;
   }
 
   /*Error Styling*/

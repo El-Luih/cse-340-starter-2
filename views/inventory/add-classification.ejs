@@ -1,0 +1,40 @@
+<h1 id="add-class-title"><%= title %> </h1>
+
+<div class="flash-messages">
+    <%- messages() %>
+    <% if (errors) { %>
+        <ul class="error">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+        <%  }) %>
+        </ul>
+    <% } %>
+</div>
+
+<h2 class="title-flavor">Enter the name of the classification you want to add.</h2>
+
+<form id="add-class-form" class="submission-form" action="/inv/management/classification" method="post">
+    <label>
+        <span class="label-field-name">Classification Name:</span>
+        <input 
+            type="text" 
+            name="classification_name" 
+            id="classification_name"
+            pattern="^[a-zA-Z0-9\-]+$"
+            required 
+            <%# Only letters, numbers and dashes ^[a-zA-Z\d-]+$ %>
+            placeholder="e.g. Euro-Cars">
+    </label>
+    <ul class="form-indications">
+        <li>The classification name:
+            <ul>
+                <li>can't contain special characters.</li>
+                <li>can't contain whitespaces.</li>
+                <li>may contain letters.</li>
+                <li>may contain numbers.</li>
+                <li>may contain dashes(-).</li>
+            </ul>
+        </li>
+    </ul>
+    <button type="submit" class="button">ADD ENTRY</button>
+</form>

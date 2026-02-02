@@ -1,2 +1,2 @@
 SELECT *
-FROM public.account;
+FROM public.classification;
