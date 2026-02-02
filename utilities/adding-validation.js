@@ -75,7 +75,7 @@ validateAdd.invAddingRules = function () {
             .custom(async function (classification_id) {
                 const classExist = await classModel.checkExistingClassId(classification_id)
                 if (classExist == false) {
-                    throw new Error("Classification doesn't exist. Add it first with the management tool.")
+                    throw new Error("Classification doesn't exist. Add it first.")
                 }
             }),
         

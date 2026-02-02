@@ -117,7 +117,7 @@ h1 {
 .button {
   font-weight: bold;
   padding: 0.5rem;
-  width: 30%;
+  width: 50%;
   max-width: 150px;
   margin: 0 auto 0.5rem;
   display: block;
@@ -329,15 +329,28 @@ h1#details-title {
   width: 75%;
 }
 
-/*Login and Registration Forms Styling*/
+/*TITLES STYLING*/
+
 h1#login-title, 
-#registration-title {
+#registration-title,
+#add-inventory-title,
+#add-class-title,
+#manage-title,
+.title-flavor {
   text-align: center;
 }
 
+.title-flavor {
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+/*FLASH MESSAGE STYLING*/
+
 .flash-messages {
   margin: 0 auto;
-  text-align: center;
+  width: 80%;
+  max-width: 300px;
 }
 
 .flash-messages .error {
@@ -351,6 +364,8 @@ h1#login-title,
 .flash-messages .notice {
   color: var(--notice-flash-color);
 }
+
+/*Login and Registration Forms Styling*/
 
 .submission-form {
   width: 90%;
@@ -451,11 +466,44 @@ h1#error-title {
   font-size: 0.5rem;
 }
 
+/*MANAGEMENT PAGE STYLING*/
 
+#management-grid {
+  display: grid;
+  gap: 2rem 0;
+  margin: 4rem auto;
+}
+
+#management-grid .url-container {
+  background-color: var(--primary-color);
+  text-align: center;
+  padding: 2.5rem;
+  color: white;
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+.url-container p {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.url-container .button {
+  text-decoration: none;
+  color: var(--primary-color);
+  background-color: white;
+}
+
+.url-container .button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
 
 
 /******* Large Screens Styling ***************/
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 700px) {
   /* Header */
   header {
     display: grid;
@@ -469,6 +517,7 @@ h1#error-title {
 
   nav ul{
     flex-wrap: nowrap;
+    font-size: 0.8rem;
   }
 
   /* Body */
@@ -601,6 +650,17 @@ h1#error-title {
   #error-message {
     font-size: 1.5rem;
     width: 60%;
+  }
+
+  /*MANAGEMENT PAGE STYLING*/
+
+  #management-grid {
+    gap: 0 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .url-container .button{
+    width: 90%;
   }
 }
 
