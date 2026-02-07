@@ -54,6 +54,7 @@
             type="number" 
             name="inv_price"
             id="inv_price"
+            min="0"
             required
             value="<%= locals.inv_price %>"
             placeholder="e.g. 70000 (Only numbers)">
@@ -64,6 +65,7 @@
             type="number" 
             name="inv_miles"
             id="inv_miles"
+            min="0"
             required
             value="<%= locals.inv_miles %>"
             placeholder="e.g. 70000 (Only numbers)">
@@ -80,6 +82,26 @@
             placeholder="e.g. Bone White (Only letters, spaces and hyphens)">
     </label>
     <label>
+        <span class="label-field-name">Vehicle Image:</span>
+        <input 
+            type="text" 
+            name="inv_image"
+            id="inv_image"
+            pattern="\/[a-z0-9\/._\-]+\.[a-z]+"
+            value = "<%= locals.inv_image %>"
+            placeholder="e.g. /vehicles/coolcar.img">
+    </label>
+    <label>
+        <span class="label-field-name">Vehicle Thumbnail:</span>
+        <input 
+            type="text" 
+            name="inv_thumbnail"
+            id="inv_thumbnail"
+            pattern="\/[a-z0-9\/._\-]+\.[a-z]+"
+            value = "<%= locals.inv_thumbnail %>"
+            placeholder="e.g. /vehicles/cool-car-tn.img">
+    </label>
+    <label>
         <span class="label-field-name">Vehicle Description:</span>
         <textarea
             name="inv_description"
@@ -89,12 +111,16 @@
             placeholder="e.g. A very cool car!"><%= locals.inv_description %></textarea>
     </label>
     <ul class="form-indications">
-        <li>All fields are required.</li>
+        <li>All fields are required, except for Vehicle Image and Vehicle Thumbnail.</li>
         <li>The Model Year must be lower than 9999.</li>
-        <li>The Selling Price must only be numbers.</li>
-        <li>The Mileage must only be numbers.</li>
+        <li>The Selling Price must only be positive numbers.</li>
+        <li>The Mileage must only be positive numbers.</li>
         <li>The Color must be letters, spaces and hyphens.</li>
         <li>For vehicles of a new classification, add the classification in the classification management tab first.</li>
+        <li>Image path files must contain at least a file name along with its extension.</li>
+        <li>Paths exclude: any special character other than "<span class="bold">-_./</span>", capital letters, and whitespaces.</li>
+        <li>The given directory will be searched inside the images directory.</li>
+        <li>Start the path with the opening "/" of the path.</li>
     </ul>
     <button type="submit" class="button">ADD ENTRY</button>
 </form>

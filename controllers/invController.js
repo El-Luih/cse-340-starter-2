@@ -102,16 +102,33 @@ invCont.addVehicleToInventory = async function (req, res, next) {
     inv_color,
     classification_id } = req.body
   
-  const inv_image = "/images/vehicles/no-image.png"
-  const inv_thumbnail = "/images/vehicles/no-image-tn.png"
+  let { 
+    inv_image,
+    inv_thumbnail,
+  } = req.body
+  
+  let finalImage = ""
+  let finalThumbnail = ""
+
+  if (!inv_image) {
+    finalImage = "/images/vehicles/no-image.png"
+  } else {
+    finalImage = `/images${inv_image}`
+  }
+
+  if (!inv_thumbnail) {
+    finalThumbnail = "/images/vehicles/no-image-tn.png"
+  } else {
+    finalThumbnail = `/images${inv_thumbnail}`
+  }
   
   const addingResults = await invModel.submitVehicleInfo(
     inv_make,
     inv_model,
     inv_year,
     inv_description,
-    inv_image,
-    inv_thumbnail,
+    finalImage,
+    finalThumbnail,
     inv_price,
     inv_miles,
     inv_color,

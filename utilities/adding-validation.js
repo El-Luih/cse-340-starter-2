@@ -64,7 +64,13 @@ validateAdd.invAddingRules = function () {
             .isNumeric()
             .withMessage("Model year must be numeric.")
             .isLength({ min: 4, max: 4 })
-            .withMessage("Year must be exactly 4 digits."),
+            .withMessage("Year must be exactly 4 digits.")
+            .custom(function (inv_price) {
+                    if (inv_price < 0) {
+                        throw new Error("Year can't be negative.")
+                    }
+                    return true
+                }),
         
         body("classification_id")
             .trim()
@@ -84,6 +90,12 @@ validateAdd.invAddingRules = function () {
             .escape()
             .notEmpty()
             .isNumeric()
+            .custom(function (inv_price) {
+                if (inv_price < 0) {
+                    throw new Error("Price can't be negative.")
+                }
+                return true
+            })
             .withMessage("Enter a valid price."),
         
         body("inv_miles")
@@ -91,6 +103,12 @@ validateAdd.invAddingRules = function () {
             .escape()
             .notEmpty()
             .isNumeric()
+            .custom(function (inv_miles) {
+                if (inv_miles < 0) {
+                    throw new Error("Miles can't be negative.")
+                }
+                return true
+            })
             .withMessage("Enter a valid mileage."),
         
         body("inv_color")
@@ -104,12 +122,24 @@ validateAdd.invAddingRules = function () {
             .trim()
             .escape()
             .notEmpty()
-            .withMessage("Provide a vehicle description.")     
+            .withMessage("Provide a vehicle description."),
+        
+        body("inv_image")
+            .trim()
+            .optional({ checkFalsy: true })
+            .matches(/^\/[a-z0-9\/._\-]+\.[a-z]+$/)
+            .withMessage("Provide a valid image path."),
+        
+        body("inv_thumbnail")
+            .trim()
+            .optional({ checkFalsy: true })
+            .matches(/^\/[a-z0-9\/._\-]+\.[a-z]+$/)
+            .withMessage("Provide a valid thumbnail path.")
     ]
 }
 
 validateAdd.checkVehicleData = async function (req, res, next) {
-    const { inv_make, inv_model, inv_year, classification_id, inv_price, inv_miles, inv_color, inv_description } = req.body
+    const { inv_make, inv_model, inv_year, classification_id, inv_price, inv_miles, inv_color, inv_description, inv_image, inv_thumbnail } = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -125,6 +155,8 @@ validateAdd.checkVehicleData = async function (req, res, next) {
             inv_year,
             inv_price,
             inv_miles,
+            inv_image,
+            inv_thumbnail,
             inv_color,
             inv_description
         })
