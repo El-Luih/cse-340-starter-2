@@ -5,30 +5,34 @@
 /* ***********************
  * Require Statements
  *************************/
+//Packages
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const bodyParser = require('body-parser')
+const session = require("express-session")
+const cookieParser = require("cookie-parser")
+
+//App Modules
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const errorRoute = require("./routes/errorRoute")
 const accountRoute = require("./routes/accountRoute")
 const utilities = require("./utilities")
-const session = require("express-session")
 const pool = require("./database")
 
 /* ***********************
- * View Engine and Templates
+ * Middleware
  *************************/
+//View Engine and Templates
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout")
 
-/* ***********************
- * Session Middleware
- * ***********************/
+
+//Session Middleware
  app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -47,11 +51,16 @@ app.use(function(req, res, next){
   next()
 })
 
-/****************
- * Body Parser Middleware
- * *************/
+
+//Body Parser Middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+//Cookies Middleware
+app.use(cookieParser())
+
+//JWT Verification Middleware
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * Routes                *

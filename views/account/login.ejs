@@ -3,7 +3,7 @@
 <form id="login-form" class="submission-form" action="/account/login" method="post">
     <label>
         <span class="label-field-name">Email:</span>
-        <input type="email" name="account_email" id="account_email" required placeholder="this-is@myemail.com">
+        <input type="email" name="account_email" id="account_email" required value="<%= locals.account_email %>" placeholder="this-is@myemail.com">
     </label>
     <label>
         <span class="label-field-name">Password:</span>
