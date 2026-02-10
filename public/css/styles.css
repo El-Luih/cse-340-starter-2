@@ -468,13 +468,13 @@ h1#error-title {
 
 /*MANAGEMENT PAGE STYLING*/
 
-#management-grid {
+#management-adding-grid {
   display: grid;
   gap: 2rem 0;
   margin: 4rem auto;
 }
 
-#management-grid .url-container {
+#management-adding-grid .url-container {
   background-color: var(--primary-color);
   text-align: center;
   padding: 2.5rem;
@@ -654,7 +654,7 @@ h1#error-title {
 
   /*MANAGEMENT PAGE STYLING*/
 
-  #management-grid {
+  #management-adding-grid {
     gap: 0 2rem;
     grid-template-columns: 1fr 1fr;
   }

@@ -18,20 +18,38 @@ router.get("/management/inventory", utilities.handleErrors(invController.buildAd
 //Management View
 router.get("/", utilities.handleErrors(invController.buildManagementView))
 
+// DATA RETRIEVAL AND MODIFICATION //
+//Get Inventory by Classification
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+//Modify Inventory Entry
+router.get("/edit/:inventory_id", utilities.handleErrors(invController.editInventoryView))
+//Delete Inventory Entry
+router.get("/delete/:inventory_id", utilities.handleErrors())
+
+
+
 // POST ROUTES //
-//Classification Management
+//Add Classification
 router.post(
     "/management/classification",
     addValidate.classAddingRules(),
     addValidate.checkClassData,
     utilities.handleErrors(invController.addClassName)
 )
-
+//Add Vehicle
 router.post(
     "/management/inventory",
     addValidate.invAddingRules(),
     addValidate.checkVehicleData,
     utilities.handleErrors(invController.addVehicleToInventory)
+)
+
+//Edit vehicle
+router.post(
+    "/update/",
+    addValidate.invEditRules(),
+    addValidate.checkUpdateData,
+    utilities.handleErrors(invController.updateVehicle)
 )
 
 module.exports = router;
