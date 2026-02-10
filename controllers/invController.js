@@ -104,8 +104,21 @@ invCont.editInventoryView = async (req, res, next) => {
 }
 
 //Renders Delete Inventory View
-invCont.deleteInventoryEntry = async (req, res, next) => {
-  
+invCont.deleteConfirmationView = async (req, res, next) => {
+  const inv_id = parseInt(req.params.inventory_id)
+  let nav = await utilities.getNav();
+  const itemData = await invModel.getVehicleByInvId(inv_id)
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+    res.render("./inventory/delete-confirm", {
+      title: "Delete " + itemName,
+      nav,
+      errors: null,
+      inv_id: itemData.inv_id,
+      inv_make: itemData.inv_make,
+      inv_model: itemData.inv_model,
+      inv_year: itemData.inv_year,
+      inv_price: itemData.inv_price
+  })
 }
 
 ////////////Edit and Delete POST Processors////////////
@@ -167,6 +180,32 @@ invCont.updateVehicle = async (req, res, next) => {
   }
 }
 
+invCont.deleteVehicle = async (req, res, next) => {
+  const { inv_id, inv_make, inv_model, inv_year, inv_price } = req.body
+  
+  const deleteResult = await invModel.deleteVehicleInfo(inv_id)
+  
+  let nav = await utilities.getNav()
+
+  if (deleteResult) {
+    const itemName = inv_make + " " + inv_model
+    req.flash("notice", `The ${itemName} was successfully deleted.`)
+    res.redirect("/inv/")
+  } else {
+    const itemName = inv_make + " " + inv_model
+    req.flash("error", "Sorry, the item could not be deleted.")
+    res.status(501).render("inventory/delete-confirm", {
+      title: "Delete " + itemName,
+      nav,
+      errors: null,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_price,
+    })
+  }
+}
 
 ////////////Adding POST Processors////////////
 invCont.addClassName = async function (req, res, next) {

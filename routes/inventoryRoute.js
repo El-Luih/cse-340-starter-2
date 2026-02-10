@@ -24,11 +24,16 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 //Modify Inventory Entry
 router.get("/edit/:inventory_id", utilities.handleErrors(invController.editInventoryView))
 //Delete Inventory Entry
-router.get("/delete/:inventory_id", utilities.handleErrors())
+router.get("/delete/:inventory_id", utilities.handleErrors(invController.deleteConfirmationView))
 
 
 
 // POST ROUTES //
+//Delete vehicle
+router.post(
+    "/delete/",
+    utilities.handleErrors(invController.deleteVehicle)
+)
 //Add Classification
 router.post(
     "/management/classification",
@@ -43,7 +48,6 @@ router.post(
     addValidate.checkVehicleData,
     utilities.handleErrors(invController.addVehicleToInventory)
 )
-
 //Edit vehicle
 router.post(
     "/update/",
