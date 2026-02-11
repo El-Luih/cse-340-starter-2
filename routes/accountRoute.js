@@ -17,6 +17,10 @@ router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 //Registration View
 router.get("/registration", utilities.handleErrors(accountController.buildRegistration))
+//Account Details View
+router.get("/details", (req, res, next) => res.redirect("/"))
+
+
 //POST REQUESTS
 // Process the registration data
 router.post(

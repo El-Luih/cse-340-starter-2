@@ -101,6 +101,7 @@ accountController.accountLogin = async (req, res) => {
             } else {
                 res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
             }
+            req.flash("notice", "You're logged in.")
             return res.redirect("/account/")
         }
         else {
@@ -121,7 +122,7 @@ accountController.accountLogin = async (req, res) => {
 accountController.buildAccountManagement = async (req, res, next) => {
     let nav = await utilities.getNav()
     res.render("account/account", {
-        title: "You're logged in",
+        title: "Account Management",
         nav,
         error: null
     })

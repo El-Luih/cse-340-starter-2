@@ -4,8 +4,8 @@
     </span>
     <div id="tools">
         <% if (locals.loggedin) { %>
-            <a title="Click to manage your account" href="/account/">Welcome <span class="welcome-user-name"><%= locals.accountData.account_firstname %></span></a>
-            <a class="logout-button" title="Click to log out" href="/account/logout">Logout</a>
+            <a class="welcome-link" title="Click to manage your account" href="/account/">Welcome, <span class="user-name"><%= locals.accountData.account_firstname %></span></a>
+            <a class="logout-button" title="Click to log out" href="/account/logout">Log Out</a>
         <% } else { %>
             <a title="Click to log in" href="/account/login">My account</a>
         <% } %>

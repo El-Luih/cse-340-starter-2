@@ -1,2 +1,25 @@
 <h1 id="account-title"><%= title %></h1>
+<h2 class="title-flavor">
+    Welcome, <span class="user-name"><%= locals.accountData.account_firstname %>!</span>
+</h2>
+
 <div class="flash-messages"><%- messages() %></div>
+
+<h3 class="account-management">Account Details Management</h3>
+<p><a
+    class="button account-management" 
+    title="Go to update your account details"
+    href="/account/details"
+    >Update Information</a>
+</p>
+
+<% if (locals.accountData.account_type === "Admin" || locals.accountData.account_type === "Employee") { %>
+    <h3 class="account-management">Inventory Management</h3>
+    <p><a
+        class="button account-management" 
+        title="Go to the inventory management page"
+        href="/inv/"
+        >Inventory Management</a>
+    </p>
+<% } %>
+
