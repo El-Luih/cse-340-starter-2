@@ -117,7 +117,6 @@ accountController.accountLogin = async (req, res) => {
     }
 }
 
-
 ////////////Account Management View////////////
 accountController.buildAccountManagement = async (req, res, next) => {
     let nav = await utilities.getNav()
@@ -128,5 +127,16 @@ accountController.buildAccountManagement = async (req, res, next) => {
     })
 }
 
+
+////////////Account Logout////////////
+accountController.accountLogout = async (req, res, next) => {
+    if (res.locals.loggedin) {
+        res.clearCookie("jwt")
+        req.flash("notice", "You have succesfully logged out")
+    } else {
+        req.flash("notice", "You cannot logged out if you are not logged in.")
+    }
+    return res.redirect("/account/login")
+}
 
 module.exports = accountController;

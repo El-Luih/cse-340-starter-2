@@ -1,1 +1,2 @@
-SELECT * From public.inventory;
+SELECT *
+From public.account;

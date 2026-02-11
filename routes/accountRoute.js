@@ -6,11 +6,16 @@ const utilities = require('../utilities')
 const validate = require('../utilities/account-validation')
 
 //GET REQUESTS
+//Account Mangement View
 router.get(
   "/",
   utilities.checkLogin,
   utilities.handleErrors(accountController.buildAccountManagement))
+//Logout button
+router.get("/logout", utilities.handleErrors(accountController.accountLogout))
+//Login View
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
+//Registration View
 router.get("/registration", utilities.handleErrors(accountController.buildRegistration))
 //POST REQUESTS
 // Process the registration data

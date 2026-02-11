@@ -127,6 +127,7 @@ async function submitVehicleInfo(
     }
 }
 
+/////////DELETES A VEHICEL BY ID/////////
 async function deleteVehicleInfo(inv_id) {
   try {
       const sql = "DELETE FROM inventory WHERE inv_id = $1"

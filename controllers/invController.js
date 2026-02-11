@@ -180,6 +180,7 @@ invCont.updateVehicle = async (req, res, next) => {
   }
 }
 
+//Deletes Inventory Entry
 invCont.deleteVehicle = async (req, res, next) => {
   const { inv_id, inv_make, inv_model, inv_year, inv_price } = req.body
   
