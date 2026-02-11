@@ -11,32 +11,56 @@ router.get("/detail/:vehicleId", utilities.handleErrors(invController.buildByVeh
 /******MANAGEMENT ROUTES******/
 //
 // GET ROUTES //
+// Accessible only to Admins and Employees //
 //Classification Management
-router.get("/management/classification", utilities.handleErrors(invController.buildAddClassView))
+router.get("/management/classification",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
+    utilities.handleErrors(invController.buildAddClassView))
 //Inventory Management
-router.get("/management/inventory", utilities.handleErrors(invController.buildAddInvView))
+router.get("/management/inventory",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
+    utilities.handleErrors(invController.buildAddInvView))
 //Management View
-router.get("/", utilities.handleErrors(invController.buildManagementView))
+router.get("/",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
+    utilities.handleErrors(invController.buildManagementView))
 
 // DATA RETRIEVAL AND MODIFICATION //
 //Get Inventory by Classification
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get("/getInventory/:classification_id",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
+    utilities.handleErrors(invController.getInventoryJSON))
 //Modify Inventory Entry
-router.get("/edit/:inventory_id", utilities.handleErrors(invController.editInventoryView))
+router.get("/edit/:inventory_id",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
+    utilities.handleErrors(invController.editInventoryView))
 //Delete Inventory Entry
-router.get("/delete/:inventory_id", utilities.handleErrors(invController.deleteConfirmationView))
+router.get("/delete/:inventory_id",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
+    utilities.handleErrors(invController.deleteConfirmationView))
 
 
 
 // POST ROUTES //
+// Accessible only to Admins and Employees //
 //Delete vehicle
 router.post(
     "/delete/",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
     utilities.handleErrors(invController.deleteVehicle)
 )
 //Add Classification
 router.post(
     "/management/classification",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
     addValidate.classAddingRules(),
     addValidate.checkClassData,
     utilities.handleErrors(invController.addClassName)
@@ -44,6 +68,8 @@ router.post(
 //Add Vehicle
 router.post(
     "/management/inventory",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
     addValidate.invAddingRules(),
     addValidate.checkVehicleData,
     utilities.handleErrors(invController.addVehicleToInventory)
@@ -51,6 +77,8 @@ router.post(
 //Edit vehicle
 router.post(
     "/update/",
+    utilities.checkLogin,
+    utilities.checkAdminEmployee,
     addValidate.invEditRules(),
     addValidate.checkUpdateData,
     utilities.handleErrors(invController.updateVehicle)

@@ -154,6 +154,18 @@ Util.checkJWTToken = (req, res, next) => {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
+}
+ 
+
+///////Check Admin and Employee///////
+Util.checkAdminEmployee = (req, res, next) => {
+  const userData = res.locals.accountData
+  if (userData.account_type === "Admin" || userData.account_type === "Employee") {
+    next()
+  } else {
+    req.flash("error", "Insufficient credentials.")
+    return res.redirect("/account/login")
+  }
  }
 
 
