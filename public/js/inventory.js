@@ -25,7 +25,7 @@
 
  // Build inventory items into HTML table components and inject into DOM 
 function buildInventoryList(data) { 
- let inventoryDisplay = document.getElementById("manageInventoryDisplay"); 
+ let inventoryDisplay = document.getElementById("manageInventoryTable"); 
  // Set up the table labels 
  let dataTable = '<thead>'; 
  dataTable += '<tr><th>Vehicle Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>'; 

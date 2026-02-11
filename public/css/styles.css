@@ -485,6 +485,61 @@ h1#error-title {
   border-radius: 5px;
 }
 
+#management-inventory > h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+#management-inventory > #classification_list {
+  display: block;
+  margin: 0 auto 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem;
+}
+
+#manageInventoryTable {
+  margin: 0 auto;
+  width: 80%;
+  max-width: 500px;
+  border-collapse: collapse;
+}
+
+#manageInventoryTable a {
+  color: white;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  border: thin solid var(--primary-color);
+}
+
+#manageInventoryTable a:hover {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+#manageInventoryTable th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+#manageInventoryTable tr,
+#manageInventoryTable td {
+  border: thin solid var(--primary-color);
+  padding: 0.2rem;
+}
+
+#manageInventoryTable tbody tr td:first-child {
+  font-weight: bold;
+}
+
+#manageInventoryTable tbody tr td:nth-child(2),
+#manageInventoryTable tbody tr td:nth-child(3) {
+  background-color: var(--primary-color);
+}
+
 .url-container p {
   margin-bottom: 1rem;
   font-size: 1.2rem;
@@ -501,6 +556,34 @@ h1#error-title {
   color: white;
 }
 
+
+/*EDIT VEHICLE PAGE STYLING*/
+h1#edit-inventory-title {
+  text-align: center;
+}
+
+/*DELETE CONFIRMATION PAGE STYLING*/
+h1#delete-inventory-title {
+  text-align: center;
+}
+
+.delete-confirm-warning {
+  color: var(--error-flash-color);
+  text-align: center;
+  font-weight: 900;
+}
+
+.button.delete-button {
+  border-color: white;
+  color: white;
+  background-color: var(--error-flash-color);
+  font-weight: 900;
+}
+
+.button.delete-button:hover {
+  color: var(--error-flash-color);
+  background-color: white;
+}
 
 /******* Large Screens Styling ***************/
 @media screen and (min-width: 700px) {
