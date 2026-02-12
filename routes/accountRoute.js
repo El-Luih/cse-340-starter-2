@@ -40,7 +40,7 @@ account_lastname: User
 account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r
 account_email: lelelolo@gmail.com
-account_password: Ab1"34567890 1!Abcdefghik
+account_password:  1!Abcdefghik
 */
 
 //POST REQUESTS

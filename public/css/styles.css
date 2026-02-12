@@ -2,6 +2,7 @@
 :root {
   --primary-color: rgb(36,35,51);
   --secondary-color: rgb(0,176,211);
+  --third_color: #035bff;
   --faded-color: rgba(255, 255, 255, 0.785);
   --invalid-color: rgba(255, 125, 125, 0.64);
   --error-flash-color: rgb(140, 0, 0);
@@ -47,7 +48,7 @@ main {
 
 header {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1fr;
   padding: 1rem 0.5rem;
 }
 
@@ -66,9 +67,32 @@ header {
   font-weight: 700;
 }
 
+#tools {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 #tools a {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  display: block;
+}
+
+#tools .logout-button {
+  padding: 0.3rem 0.5rem;
+  border: thin solid var(--primary-color);
+  border-radius: 3px;
+  margin-left: 0.3rem;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+#tools .logout-button:hover {
+  background-color: white;
+  color: var(--primary-color);
 }
 
 /* Navigation Menu */
@@ -104,6 +128,10 @@ nav ul li a:hover {
   color: var(--primary-color);
 }
 /* Body */
+
+.user-name {
+  color: var(--third_color);
+}
 
 h1, h2 {
   font-family: var(--secondary-font);
@@ -225,7 +253,9 @@ footer p {
 }
 
 /*Classification Grid Styling*/
-h1#classification-title {
+h1#classification-title,
+#account-title,
+#account-details-title {
   text-align: center;
 }
 
@@ -468,13 +498,13 @@ h1#error-title {
 
 /*MANAGEMENT PAGE STYLING*/
 
-#management-adding-grid {
+.urls-grid {
   display: grid;
   gap: 2rem 0;
   margin: 4rem auto;
 }
 
-#management-adding-grid .url-container {
+.url-container {
   background-color: var(--primary-color);
   text-align: center;
   padding: 2.5rem;
@@ -585,12 +615,15 @@ h1#delete-inventory-title {
   background-color: white;
 }
 
+/*Account Management Style*/
+
+
 /******* Large Screens Styling ***************/
 @media screen and (min-width: 700px) {
   /* Header */
   header {
     display: grid;
-    grid-template-columns: 6fr 1fr;
+    grid-template-columns: 2fr 1fr;
   }
 
   .siteName a {
@@ -737,7 +770,7 @@ h1#delete-inventory-title {
 
   /*MANAGEMENT PAGE STYLING*/
 
-  #management-adding-grid {
+  .urls-grid {
     gap: 0 2rem;
     grid-template-columns: 1fr 1fr;
   }
@@ -749,9 +782,19 @@ h1#delete-inventory-title {
 
 /*LARGER screens*/
 @media screen and (min-width: 1000px) {
-  /*Classification Grid Styling*/
-  
 
+  /* Header */
+  header {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+
+  #tools {
+    justify-content: end;
+  }
+
+
+  /*Classification Grid Styling*/
   #inv-display {
     grid-template-columns: 1fr 1fr 1fr;
   }

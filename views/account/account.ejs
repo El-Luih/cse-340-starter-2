@@ -14,21 +14,29 @@
     <% } %>
 </div>
 
-<h3 class="account-management">Account Details Management</h3>
-<p><a
-    class="button account-management" 
-    title="Go to update your account details"
-    href="/account/details"
-    >Update Information</a>
-</p>
+<div <% if (locals.accountData.account_type === "Admin" || locals.accountData.account_type === "Employee") { %>
+    class="urls-grid"
+    <% } %>>
+    <div class="url-container">
+        <p class="account-management">Account Information</p>
+        <p><a
+            class="button account-management" 
+            title="Go to update your account details"
+            href="/account/details"
+            >Visit</a>
+        </p>
+    </div>
 
-<% if (locals.accountData.account_type === "Admin" || locals.accountData.account_type === "Employee") { %>
-    <h3 class="account-management">Inventory Management</h3>
-    <p><a
-        class="button account-management" 
-        title="Go to the inventory management page"
-        href="/inv/"
-        >Inventory Management</a>
-    </p>
-<% } %>
+    <% if (locals.accountData.account_type === "Admin" || locals.accountData.account_type === "Employee") { %>
+        <div class="url-container">
+            <p class="account-management">Inventory Management</p>
+            <p><a
+                class="button account-management" 
+                title="Go to the inventory management page"
+                href="/inv/"
+                >Visit</a>
+            </p>
+        </div>
+    <% } %>
+</div>
 
