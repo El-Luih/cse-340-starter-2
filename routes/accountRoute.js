@@ -68,19 +68,8 @@ router.post(
   regValidate.checkDetailsData,
   utilities.handleErrors(accountController.updateAccountDetails)
 )
-
-
-
-
-
-
-
-
-
-
 // Process the account password update
 //Requires a logged in user
-//////////////NOT COMPLETED//////////////
 router.post(
   "/details/password",
   utilities.checkLogin,

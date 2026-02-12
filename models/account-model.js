@@ -62,6 +62,7 @@ accountModel.getAccountByID = async (account_id) => {
     }
 }
 
+//Update Account Details
 accountModel.updateDetails = async function(
     account_id,
     account_firstname,
@@ -83,6 +84,7 @@ accountModel.updateDetails = async function(
     }
 }
 
+//Update Account Password
 accountModel.updatePassword = async function(
     account_id,
     account_password
