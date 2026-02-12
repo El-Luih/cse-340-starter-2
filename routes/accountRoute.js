@@ -18,33 +18,13 @@ router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 //Registration View
 router.get("/registration", utilities.handleErrors(accountController.buildRegistration))
-
-
-
-
-
-
-
-
 //Account Details View
 //Requires a logged in user
-
-//////////////NOT COMPLETED//////////////
-
 router.get(
   "/details",
   utilities.checkLogin,  
   utilities.handleErrors(accountController.buildAccountDetailsView)
 )
-
-
-
-
-
-
-
-
-
 
 /*
 account_firstname: Basic
@@ -59,7 +39,7 @@ account_firstname: Manager
 account_lastname: User
 account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r
-account_email: lululala@gmail.com
+account_email: lelelolo@gmail.com
 account_password: Ab1"34567890
 */
 

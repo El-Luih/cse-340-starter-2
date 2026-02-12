@@ -3,7 +3,16 @@
     Welcome, <span class="user-name"><%= locals.accountData.account_firstname %>!</span>
 </h2>
 
-<div class="flash-messages"><%- messages() %></div>
+<div class="flash-messages">
+    <%- messages() %>
+    <% if (errors) { %>
+        <ul class="error">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <%  }) %>
+        </ul>
+    <% } %>
+</div>
 
 <h3 class="account-management">Account Details Management</h3>
 <p><a

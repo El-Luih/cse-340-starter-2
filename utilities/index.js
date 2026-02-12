@@ -151,7 +151,7 @@ Util.checkJWTToken = (req, res, next) => {
   if (res.locals.loggedin) {
     next()
   } else {
-    req.flash("notice", "Please log in.")
+    req.flash("notice", "Please log in to use this feature.")
     return res.redirect("/account/login")
   }
 }

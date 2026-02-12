@@ -16,11 +16,25 @@ accountModel.postAccount = async function (account_firstname, account_lastname, 
  * ********************* */
 accountModel.checkExistingEmail = async function (account_email) {
     try {
-    const sql = "SELECT * FROM account WHERE account_email = $1"
-    const email = await pool.query(sql, [account_email])
-    return email.rowCount
+        const sql = "SELECT * FROM account WHERE account_email = $1"
+        const email = await pool.query(sql, [account_email])
+        return email.rowCount
     } catch (error) {
-        return error.message
+        console.error(error)
+    }
+}
+
+/* **********************
+ *   Check for existing ID
+ * ********************* */
+accountModel.checkExistingID = async function (account_id) {
+    try {
+        const sql = "SELECT * FROM account WHERE account_id = $1"
+        const ID = await pool.query(sql, [account_id])
+        return ID.rowCount
+    } catch (error) {
+        console.error(error)
+        return false
     }
 }
 
@@ -35,6 +49,40 @@ accountModel.getAccountByEmail = async (account_email) => {
         return new Error("No matching email found")
     }
 }
+
+/////Return account by ID
+accountModel.getAccountByID = async (account_id) => {
+    try {
+        const result = await pool.query(
+        'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_id = $1',
+        [account_id])
+        return result.rows[0]
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+accountModel.updateDetails = async function(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+) {
+    try {
+        const sql =
+        "UPDATE public.account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *"
+        const data = await pool.query(sql, [
+            account_firstname,
+            account_lastname,
+            account_email,
+            account_id
+        ])
+        return data.rows[0]
+    } catch (error) {
+        console.error("model error: " + error)
+    }
+}
+
 
 module.exports = accountModel
 

@@ -123,10 +123,67 @@ validate.checkLoginData = async (req, res, next) => {
 
 ///////////UPDATE DETAILS VALIDATION///////////}
 validate.updateDetailsRules = () => { 
-  return []
+  return [
+    body("account_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Invalid account ID.")
+      .custom(async function (account_id) {
+          const IDExist = await accountModel.checkExistingID(account_id)
+          if (IDExist == false) {
+              throw new Error("Account ID doesnt exist.")
+          }
+      }),
+
+    body("account_firstname")
+        .trim()
+        .escape()
+        .notEmpty()
+        .isLength({ min: 1 })
+        .withMessage("Please provide a first name."), 
+  
+     
+    body("account_lastname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 2 })
+      .withMessage("Please provide a last name."), 
+
+    body("account_email")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isEmail()
+      .normalizeEmail() // refer to validator.js docs
+      .withMessage("A valid email is required.")
+      .custom(async (account_email) => {
+        const emailExists = await accountModel.checkExistingEmail(account_email)
+        if (emailExists){
+          throw new Error("Email exists. Please change to a different email")
+        }
+      })
+  ]
 }
 validate.checkDetailsData = async (req, res, next) => {
-
+  let errors = []
+  const { account_email, account_firstname, account_lastname } = req.body
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/details", {
+      errors,
+      title: "Account Information",
+      nav,
+      account_email,
+      account_firstname,
+      account_lastname
+    })
+    return
+  }
+  next()
 }
 
 ///////////UPDATE PASSWORD VALIDATION///////////}

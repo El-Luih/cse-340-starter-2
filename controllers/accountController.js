@@ -124,7 +124,7 @@ accountController.buildAccountManagement = async (req, res, next) => {
     res.render("account/account", {
         title: "Account Management",
         nav,
-        error: null
+        errors: null
     })
 }
 
@@ -142,12 +142,64 @@ accountController.accountLogout = async (req, res, next) => {
 
 ////////////GET Account Details View////////////
 accountController.buildAccountDetailsView = async (req, res, next) => {
-
+    let nav = await utilities.getNav()
+    res.render("account/details", {
+        title: "Account Information",
+        nav,
+        errors: null
+    })
 }
 
 ////////////POST Update Account Details////////////
 accountController.updateAccountDetails = async (req, res, next) => {
+    let nav = await utilities.getNav()
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
 
+    const updateResults = accountModel.updateDetails(
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email
+    )
+
+    if (updateResults) {
+        const accountData = await accountModel.getAccountByID(account_id)
+        delete accountData.account_password
+        res.clearCookie("jwt")
+        const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+        if(process.env.NODE_ENV === 'development') {
+            res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+        } else {
+            res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+        }
+        req.flash(
+            "notice",
+            `Your information has been updated.`
+        )
+        req.flash(
+            "notice",
+            `First Name: ${account_firstname}`
+        )
+        req.flash(
+            "notice",
+            `Last Name: ${account_lastname}`
+        )
+        req.flash(
+            "notice",
+            `Email: ${account_email}`
+        )
+        res.status(201).redirect("/account")
+    } else {
+        req.flash(
+            "error",
+            "Your information could not be updated"
+        )
+        res.status(501).render("account/details", {
+            title: "Account Information",
+            nav,
+            errors: null
+        })
+    }
 }
 
 ////////////POST Update Account Password////////////
