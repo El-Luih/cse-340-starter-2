@@ -40,7 +40,7 @@ account_lastname: User
 account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r
 account_email: lelelolo@gmail.com
-account_password: Ab1"34567890
+account_password: Ab1"34567890 1!Abcdefghik
 */
 
 //POST REQUESTS
@@ -52,27 +52,15 @@ router.post(
   utilities.handleErrors(accountController.registerAccount)
 )
 
-// Process the login attempt
+// Processes the login attempt
 router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
 )
-
-
-
-
-
-
-
-
-
-
 // Process the account details update
 //Requires a logged in user
-//////////////NOT COMPLETED//////////////
-
 router.post(
   "/details/information",
   utilities.checkLogin,
@@ -80,6 +68,14 @@ router.post(
   regValidate.checkDetailsData,
   utilities.handleErrors(accountController.updateAccountDetails)
 )
+
+
+
+
+
+
+
+
 
 
 // Process the account password update

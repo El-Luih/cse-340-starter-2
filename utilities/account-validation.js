@@ -188,10 +188,47 @@ validate.checkDetailsData = async (req, res, next) => {
 
 ///////////UPDATE PASSWORD VALIDATION///////////}
 validate.updatePasswordRules = () => { 
-  return []
+  return [
+    body("account_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Invalid account ID.")
+      .custom(async function (account_id) {
+          const IDExist = await accountModel.checkExistingID(account_id)
+          if (IDExist == false) {
+              throw new Error("Account ID doesnt exist.")
+          }
+      }),
+    
+    body("account_password")
+        .trim()
+        .notEmpty()
+        .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+        .withMessage("Enter a valid password.")
+  ]
 }
-validate.checkPasswodData = async (req, res, next) => {
 
+validate.checkPasswodData = async (req, res, next) => {
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/details", {
+      errors,
+      title: "Account Information",
+      nav
+    })
+    return
+  }
+  next()
 }
 
 module.exports = validate

@@ -47,7 +47,7 @@ accountController.registerAccount = async function (req, res, next) {
         errors: null,
         })
     }
-    const registrationResults = accountModel.postAccount(
+    const registrationResults = await accountModel.postAccount(
         account_firstname,
         account_lastname,
         account_email,
@@ -155,7 +155,7 @@ accountController.updateAccountDetails = async (req, res, next) => {
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_id } = req.body
 
-    const updateResults = accountModel.updateDetails(
+    const updateResults = await accountModel.updateDetails(
         account_id,
         account_firstname,
         account_lastname,
@@ -192,7 +192,7 @@ accountController.updateAccountDetails = async (req, res, next) => {
     } else {
         req.flash(
             "error",
-            "Your information could not be updated"
+            "Sorry, your information could not be updated."
         )
         res.status(501).render("account/details", {
             title: "Account Information",
@@ -204,7 +204,41 @@ accountController.updateAccountDetails = async (req, res, next) => {
 
 ////////////POST Update Account Password////////////
 accountController.updateAccountPassword = async (req, res, next) => {
+    let nav = await utilities.getNav()
+    const { account_id, account_password } = req.body
+    let hashedPassword
+    try {
+        hashedPassword = await bcrypt.hashSync(account_password, 10)
+    } catch (error) {
+        req.flash("error", 'Sorry, there was an error while processing the update.')
+        res.status(500).render("account/details", {
+            title: "Account Information",
+            nav,
+            errors: null,
+        })
+    }
+    const updateResults = await accountModel.updatePassword(
+        account_id,
+        hashedPassword
+    )
 
+    if (updateResults) {
+        req.flash(
+            "notice",
+            `Your password has been updated.`
+        )
+        res.status(201).redirect("/account")
+    } else {
+        req.flash(
+            "error",
+            "Sorry, your password could not be updated."
+        )
+        res.status(501).render("account/details", {
+            title: "Account Information",
+            nav,
+            errors: null
+        })
+    }
 }
 
 

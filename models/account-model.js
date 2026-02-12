@@ -83,6 +83,23 @@ accountModel.updateDetails = async function(
     }
 }
 
+accountModel.updatePassword = async function(
+    account_id,
+    account_password
+) {
+    try {
+        const sql =
+        "UPDATE public.account SET account_password = $1 WHERE account_id = $2 RETURNING *"
+        const data = await pool.query(sql, [
+            account_password,
+            account_id
+        ])
+        return data.rows[0]
+    } catch (error) {
+        console.error("model error: " + error)
+    }
+}
+
 
 module.exports = accountModel
 
