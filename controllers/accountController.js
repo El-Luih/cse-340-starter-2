@@ -31,7 +31,7 @@ accountController.buildRegistration = async function (req, res, next) {
 }
 
 
-////////////REGISTER ACCOUNT////////////
+////////////POST REGISTER ACCOUNT////////////
 accountController.registerAccount = async function (req, res, next) {
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
@@ -77,7 +77,7 @@ accountController.registerAccount = async function (req, res, next) {
 }
 
 
-////////////Login Account////////////
+//////////// POST Login Account////////////
 accountController.accountLogin = async (req, res) => {
     let nav = await utilities.getNav()
     const { account_email, account_password } = req.body
@@ -118,7 +118,7 @@ accountController.accountLogin = async (req, res) => {
     }
 }
 
-////////////Account Management View////////////
+////////////GET Account Management View////////////
 accountController.buildAccountManagement = async (req, res, next) => {
     let nav = await utilities.getNav()
     res.render("account/account", {
@@ -129,7 +129,7 @@ accountController.buildAccountManagement = async (req, res, next) => {
 }
 
 
-////////////Account Logout////////////
+////////////GET Account Logout////////////
 accountController.accountLogout = async (req, res, next) => {
     if (res.locals.loggedin) {
         res.clearCookie("jwt")
@@ -139,5 +139,21 @@ accountController.accountLogout = async (req, res, next) => {
     }
     return res.redirect("/account/login")
 }
+
+////////////GET Account Details View////////////
+accountController.buildAccountDetailsView = async (req, res, next) => {
+
+}
+
+////////////POST Update Account Details////////////
+accountController.updateAccountDetails = async (req, res, next) => {
+
+}
+
+////////////POST Update Account Password////////////
+accountController.updateAccountPassword = async (req, res, next) => {
+
+}
+
 
 module.exports = accountController;

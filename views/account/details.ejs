@@ -1,0 +1,76 @@
+<h1 id="account-details-title"><%= title %></h1>
+<h2 class="title-flavor">Update your account information.</h2>
+
+<div class="flash-messages">
+    <%- messages() %>
+    <% if (errors) { %>
+        <ul class="error">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <%  }) %>
+        </ul>
+    <% } %>
+</div>
+
+<div id="account-details-forms-grid">
+    <form id="account-details-form" class="submission-form" action="/account/details/information" method="post">
+        <h2 class="form-title">Update Details</h2>
+        <input type="hidden" name="inv_id" id="inv_id_d" value="<%= locals.accountData.inv_id %>">
+        <label>
+        <label>
+            <span class="label-field-name">First Name:</span>
+            <input type="text" name="account_firstname" id="account_firstname" required
+                <% if (locals.account_firstname) { %>
+                <% } else { %>
+                    value="<%= locals.accountData.account_firstname %>" 
+                <% } %>
+                placeholder="Guy">
+        </label>
+        <label>
+            <span class="label-field-name">Last Name:</span>
+            <input type="text" name="account_lastname" id="account_lastname" required
+                <% if (locals.account_lastname) { %>
+                <% } else { %>
+                    value="<%= locals.accountData.account_lastname %>" 
+                <% } %>
+                placeholder="A. Good">
+        </label>
+        <label>
+            <span class="label-field-name">Email Address:</span>
+            <input type="email" name="account_email" id="account_email" required
+                <% if (locals.account_email) { %>
+                <% } else { %>
+                    value="<%= locals.accountData.account_email %>"
+                <% } %>
+                placeholder="a.goodguy@yes.iam">
+        </label>
+        <button type="submit" class="button" id="details-submit" disabled>Update</button>
+        <ul class="form-indications">
+            <li>At least some changes must be made to submit you information</li>
+            <li>All inputs are required</li>
+        </ul>
+    </form>
+
+    <form id="account-password-form" class="submission-form" action="/account/details/password" method="post">
+        <h2 class="form-title">Change Password</h2>
+        <input type="hidden" name="inv_id" id="inv_id_p" value="<%= locals.accountData.inv_id %>">
+        <label>
+            <span class="label-field-name">Password:</span>
+            <input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd">
+        </label>
+        <button type="submit" class="button" id="password-submit">Update</button>
+        <ul class="form-indications">
+            <li>Passwords must:
+                <ul>
+                    <li>be 12 characters in length, minimum.</li>
+                    <li>contain at least 1 capital letter.</li>
+                    <li>contain at least 1 number.</li>
+                    <li>contain at least 1 special character.</li>
+                    <li>not contain whitespaces.</li>
+                </ul>
+            </li>
+        </ul>
+    </form>
+</div>
+
+<script src="../../js/account-details.js"></script>

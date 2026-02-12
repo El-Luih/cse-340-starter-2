@@ -77,6 +77,8 @@ validate.checkRegData = async (req, res, next) => {
   }
   next()
 }
+
+
 ///////////LOGIN VALIDATION///////////
 validate.loginRules = () => {
   return [
@@ -117,6 +119,22 @@ validate.checkLoginData = async (req, res, next) => {
     return
   }
   next()
+}
+
+///////////UPDATE DETAILS VALIDATION///////////}
+validate.updateDetailsRules = () => { 
+  return []
+}
+validate.checkDetailsData = async (req, res, next) => {
+
+}
+
+///////////UPDATE PASSWORD VALIDATION///////////}
+validate.updatePasswordRules = () => { 
+  return []
+}
+validate.checkPasswodData = async (req, res, next) => {
+
 }
 
 module.exports = validate

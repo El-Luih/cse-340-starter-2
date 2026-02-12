@@ -7,6 +7,7 @@ const validate = require('../utilities/account-validation')
 
 //GET REQUESTS
 //Account Mangement View
+//Requires a logged in user
 router.get(
   "/",
   utilities.checkLogin,
@@ -17,19 +18,34 @@ router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 //Registration View
 router.get("/registration", utilities.handleErrors(accountController.buildRegistration))
+
+
+
+
+
+
+
+
 //Account Details View
-router.get("/details", (req, res, next) => res.redirect("/"))
+//Requires a logged in user
 
+//////////////NOT COMPLETED//////////////
 
-//POST REQUESTS
-// Process the registration data
-router.post(
-  "/registration",
-  regValidate.registationRules(),
-  regValidate.checkRegData,
-  utilities.handleErrors(accountController.registerAccount)
+router.get(
+  "/details",
+  utilities.checkLogin,  
+  utilities.handleErrors(accountController.buildAccountDetailsView)
 )
-// Process the login attempt
+
+
+
+
+
+
+
+
+
+
 /*
 account_firstname: Basic
 account_lastname: Client
@@ -46,10 +62,57 @@ account_password: I@mAnAdm!n1strat0r
 account_email: lululala@gmail.com
 account_password: Ab1"34567890
 */
+
+//POST REQUESTS
+// Process the registration data
+router.post(
+  "/registration",
+  regValidate.registationRules(),
+  regValidate.checkRegData,
+  utilities.handleErrors(accountController.registerAccount)
+)
+
+// Process the login attempt
 router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLoginData,
-  utilities.handleErrors(accountController.accountLogin))
+  utilities.handleErrors(accountController.accountLogin)
+)
+
+
+
+
+
+
+
+
+
+
+// Process the account details update
+//Requires a logged in user
+//////////////NOT COMPLETED//////////////
+
+router.post(
+  "/details/information",
+  utilities.checkLogin,
+  regValidate.updateDetailsRules(),
+  regValidate.checkDetailsData,
+  utilities.handleErrors(accountController.updateAccountDetails)
+)
+
+
+// Process the account password update
+//Requires a logged in user
+//////////////NOT COMPLETED//////////////
+router.post(
+  "/details/password",
+  utilities.checkLogin,
+  regValidate.updatePasswordRules(),
+  regValidate.checkPasswodData,
+  utilities.handleErrors(accountController.updateAccountPassword)
+)
+
+
 
 module.exports = router;
