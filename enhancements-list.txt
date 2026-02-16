@@ -1,3 +1,11 @@
-1. The registration form now asks the user to type their password twice when creating an account as an additional layer of confirmation for password selection.
+1. (Utilities, details.ejs and registration.ejs views) The registration form now asks the user to type their password twice when creating an account as an additional layer of confirmation for password selection.
     Both password entries are passed through client-side and server-side validation.
-2. 
+
+2. (Account Controller, details.ejs view, account table query) The 
+
+
+✓ Database Interaction (query existing table)
+Model
+✓ Controller (add additional behavior to exisitng controller)
+✓ View (add additional behavior to existing views)
+✓ Best Practices (MVC model is followed, SQL prepared statements, data validation, error handling middleware, JWS authentication and authorization)

@@ -208,7 +208,24 @@ accountController.updateAccountDetails = async (req, res, next) => {
 ////////////POST Update Account Password////////////
 accountController.updateAccountPassword = async (req, res, next) => {
     let nav = await utilities.getNav()
-    const { account_id, account_password } = req.body
+    //Retrieves the old_password input
+    const { account_id, account_password, old_password } = req.body
+    const accountData = await accountModel.getAccountByID(account_id);
+
+    //Uses bcrypt to compare the old_password input to the current password, similar to the login process.
+
+    if (!await bcrypt.compare(old_password, accountData.account_password)) {
+        req.flash("error", "Please, check your current password and try again.")
+        return res.status(400).render("account/details", {
+            title: "Account Information",
+            nav,
+            errors: null
+        })
+    }
+
+    
+
+
     let hashedPassword
     try {
         hashedPassword = await bcrypt.hashSync(account_password, 10)
@@ -220,6 +237,7 @@ accountController.updateAccountPassword = async (req, res, next) => {
             errors: null,
         })
     }
+
     const updateResults = await accountModel.updatePassword(
         account_id,
         hashedPassword

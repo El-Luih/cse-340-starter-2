@@ -74,6 +74,11 @@ being evaluated with the assignment, and just changed some trivial aspects of it
     <form id="account-password-form" class="submission-form" action="/account/details/password" method="post">
         <h2 class="form-title">Change Password</h2>
         <input type="hidden" name="account_id" id="account_id_p" value="<%= locals.accountData.account_id %>">
+        <%# New old password field. Additional security measure. %>
+        <label>
+            <span class="label-field-name">Old Password:</span>
+            <input type="password" name="old_password" id="old_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+        </label>
         <label>
             <span class="label-field-name">New Password:</span>
             <input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd">
@@ -81,7 +86,7 @@ being evaluated with the assignment, and just changed some trivial aspects of it
         <%# New password confirmation field. Client-side validated with JS %>
         <label>
             <span class="label-field-name">Confirm Password:</span>
-            <input type="password" name="confirm_password" id="confirm_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd">
+            <input type="password" name="confirm_password" id="confirm_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd again">
         </label>
         <button type="submit" class="button" id="password-submit">Update</button>
         <ul class="form-indications">

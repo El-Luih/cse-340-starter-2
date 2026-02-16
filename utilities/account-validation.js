@@ -221,6 +221,19 @@ validate.updatePasswordRules = () => {
           }
       }),
     
+    //New validation rule to validate the old password pattern. Va
+    body("old_password")
+        .trim()
+        .notEmpty()
+        .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+      .withMessage("Enter a valid existing password."),
+    
     body("account_password")
         .trim()
         .notEmpty()
@@ -231,7 +244,7 @@ validate.updatePasswordRules = () => {
           minNumbers: 1,
           minSymbols: 1,
         })
-      .withMessage("Enter a valid password."),
+      .withMessage("Enter a valid new password."),
     
     //New validation rule to validate the confirm_password pattern and compare it to the entered password.
     body("confirm_password")
