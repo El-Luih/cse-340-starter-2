@@ -43,6 +43,10 @@ main {
   font-weight: bold;
 }
 
+.subtitle {
+  text-align: center;
+}
+
 /******* Small Screens Styling ***************/
 /* Header */
 
@@ -151,6 +155,8 @@ h1 {
   display: block;
   border: thin solid white;
   border-radius: 3px;
+  text-align: center;
+  text-decoration: none;
 }
 
 #main-button {
@@ -617,6 +623,10 @@ h1#delete-inventory-title {
 }
 
 /*Account Management Style*/
+
+.button.delete-button.account {
+  border-color: var(--primary-color);
+}
 
 
 /******* Large Screens Styling ***************/

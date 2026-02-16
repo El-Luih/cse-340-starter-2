@@ -138,7 +138,7 @@ accountController.accountLogout = async (req, res, next) => {
         res.clearCookie("jwt")
         req.flash("notice", "You have succesfully logged out")
     } else {
-        req.flash("notice", "You cannot logged out if you are not logged in.")
+        req.flash("notice", "You cannot log out if you are not logged in.")
     }
     return res.redirect("/account/login")
 }
@@ -262,5 +262,37 @@ accountController.updateAccountPassword = async (req, res, next) => {
     }
 }
 
+
+////////////ENHANCEMENT////////////
+////////////GET Delete Account Confirmation////////////
+//All data is retrieved from JWS decrypted data.
+accountController.deleteOwnConfirmationView = async (req, res, next) => {
+      let nav = await utilities.getNav();
+        res.render("./account/delete-own", {
+          title: "Delete Your Account",
+          nav,
+          errors: null
+      })
+}
+
+
+////////////ENHANCEMENT////////////
+////////////POST Delete Account////////////
+accountController.deleteOwnAccount = async (req, res, next) => {
+    const { account_id } = req.body
+
+    const deleteResult = await accountModel.deleteAccountById(account_id)
+
+    if (deleteResult) {
+        req.flash("notice", "Your account was deleted")
+        req.flash("notice", "Goodbye for now!")
+        res.clearCookie("jwt")
+        return res.redirect("/account/login")
+    } else {
+        req.flash("notice", "Your account couldn't be deleted")
+        req.flash("notice", "Contact technical support")
+        return res.redirect("/account")
+    }
+}
 
 module.exports = accountController;

@@ -102,6 +102,18 @@ accountModel.updatePassword = async function(
     }
 }
 
+//ENHANCEMENT
+//Delete account by id
+accountModel.deleteAccountById = async (account_id) => {
+    try {
+        const sql = "DELETE FROM account WHERE account_id = $1"
+        const data = await pool.query(sql, [account_id])
+        return data
+    } catch (error) {
+        new Error("Model error: " + error)
+    }
+}
+
 
 module.exports = accountModel
 

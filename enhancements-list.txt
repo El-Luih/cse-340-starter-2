@@ -1,11 +1,38 @@
-1. (Utilities, details.ejs and registration.ejs views) The registration form now asks the user to type their password twice when creating an account as an additional layer of confirmation for password selection.
+1. (Utilities, details.ejs and registration.ejs Views) 
+    The registration form now asks the user to type their password twice when creating an account as an additional layer of confirmation for password selection.
     Both password entries are passed through client-side and server-side validation.
 
-2. (Account Controller, details.ejs view, account table query) The 
+2. (Account Controller, details.ejs View, Account Model query) 
+    The user must provide their current password in order to change to a new one.
 
+3. (Account Controller, account.ejs and delet-own.ejs Views, Account Model delete, Account Router)
+    Users can now delete their accounts from the Account Management view.
+    The "Delete Account" button redirects to a Delete Confirmation View where the account info is displayed.
+    Failure redirects to the Account Management view.
+    Success redirects to the Login view.
 
-✓ Database Interaction (query existing table)
-Model
+New views
+- account/delete-own.ejs
+
+New Controller Functions:
+- accountController.deleteOwnCofirmationView()
+- accountController.deleteOwnAccount()
+
+New Routes
+- GET account/delete
+- POST account/delete
+
+New Utility Functions
+- validation.deleteOwnRules()
+- validation.checkDeleteOwnData()
+
+New Model Functions
+- accountModel.deleteAccountById()
+
+Several modifications.
+
+✓ Database Interaction (query existing table, delete table entries)
+✓ Model (new model functions)
 ✓ Controller (add additional behavior to exisitng controller)
 ✓ View (add additional behavior to existing views)
-✓ Best Practices (MVC model is followed, SQL prepared statements, data validation, error handling middleware, JWS authentication and authorization)
+✓ Best Practices (MVC model is followed, SQL prepared statements, data validation, all routes use error handling middleware, JWS authentication and authorization)

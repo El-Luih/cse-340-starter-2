@@ -205,7 +205,7 @@ validate.checkDetailsData = async (req, res, next) => {
   next()
 }
 
-///////////UPDATE PASSWORD VALIDATION///////////}
+///////////UPDATE PASSWORD VALIDATION///////////
 validate.updatePasswordRules = () => { 
   return [
     body("account_id")
@@ -278,6 +278,40 @@ validate.checkPasswodData = async (req, res, next) => {
       nav
     })
     return
+  }
+  next()
+}
+
+
+
+///////////ENHANCEMENT///////////
+///////////DELETE OWN ACCOUNT VALIDATION///////////
+//Only the id is validated in case a request is sent through a diferent channel other than the appropriate page.
+validate.deleteOwnRules = () => {
+  return [
+    body("account_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isNumeric()
+      //Not much information is given for security purposes
+      .withMessage("Invalid request data. Refer to the proper channel to try again.")
+      .custom(async function (account_id) {
+          const IDExist = await accountModel.checkExistingID(account_id)
+          if (IDExist == false) {
+              throw new Error("Invalid request data. Refer to the proper channel to try again.")
+          }
+      })
+  ]
+}
+
+//If somehow the account_id is invalid, redirect to the account management view.
+validate.checkDeleteOwnData = async (req, res, next) => {
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    return res.redirect("/account")
   }
   next()
 }

@@ -103,7 +103,7 @@ invCont.editInventoryView = async (req, res, next) => {
   })
 }
 
-//Renders Delete Inventory View
+////////////GET Delete Inventory Confirmation////////////
 invCont.deleteConfirmationView = async (req, res, next) => {
   const inv_id = parseInt(req.params.inventory_id)
   let nav = await utilities.getNav();
@@ -180,7 +180,7 @@ invCont.updateVehicle = async (req, res, next) => {
   }
 }
 
-//Deletes Inventory Entry
+////////////POST Deletes Inventory////////////
 invCont.deleteVehicle = async (req, res, next) => {
   const { inv_id, inv_make, inv_model, inv_year, inv_price } = req.body
   

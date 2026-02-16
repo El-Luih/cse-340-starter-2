@@ -19,11 +19,19 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin))
 //Registration View
 router.get("/registration", utilities.handleErrors(accountController.buildRegistration))
 //Account Details View
-//Requires a logged in user
+//Requires a logged-in user
 router.get(
   "/details",
   utilities.checkLogin,  
   utilities.handleErrors(accountController.buildAccountDetailsView)
+)
+//ENHANCEMENT
+//Delete user account
+//Requires a logged-in user
+router.get(
+  "/delete",
+  utilities.checkLogin,  
+  utilities.handleErrors(accountController.deleteOwnConfirmationView)
 )
 
 /*
@@ -40,7 +48,8 @@ account_lastname: User
 account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r
 account_email: lelelolo@gmail.com
-account_password:  S0goodYE$2026  N0t$ogood2026
+account_password:  S0goodYE$2026
+
 */
 
 //POST REQUESTS
@@ -77,7 +86,16 @@ router.post(
   regValidate.checkPasswodData,
   utilities.handleErrors(accountController.updateAccountPassword)
 )
-
+//ENHANCEMENT
+//Delete the own account of the user
+//Requires a logged in user
+router.post(
+  "/delete",
+  utilities.checkLogin,
+  regValidate.deleteOwnRules(),
+  regValidate.checkDeleteOwnData,
+  utilities.handleErrors(accountController.deleteOwnAccount)
+)
 
 
 module.exports = router;
