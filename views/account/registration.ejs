@@ -26,6 +26,11 @@
         <span class="label-field-name">Password:</span>
         <input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd">
     </label>
+    <%# New password confirmation field. Client-side validated with JS %>
+    <label>
+        <span class="label-field-name">Confirm Password:</span>
+        <input type="password" name="confirm_password" id="confirm_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd">
+    </label>
     <button type="submit" class="button">Register</button>
     <ul class="form-indications">
         <li>All inputs are required</li>
@@ -38,5 +43,10 @@
                 <li>not contain whitespaces.</li>
             </ul>
         </li>
+        <%# New instruction for clarification %>
+        <li>You must enter your password again in the Confirm Password field</li>
     </ul>
 </form>
+
+<%# New JS file to compare both password fields%>
+<script src="../../js/registration.js"></script>

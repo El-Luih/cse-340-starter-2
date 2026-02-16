@@ -71,6 +71,9 @@ accountController.registerAccount = async function (req, res, next) {
         res.status(501).render("account/register", {
             title: "Registration",
             nav,
+            account_firstname,
+            account_email,
+            account_lastname,
             errors: null
         })
     }

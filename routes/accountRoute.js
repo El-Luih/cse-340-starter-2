@@ -40,14 +40,14 @@ account_lastname: User
 account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r
 account_email: lelelolo@gmail.com
-account_password:  1!Abcdefghik
+account_password:  S0goodYE$2026
 */
 
 //POST REQUESTS
 // Process the registration data
 router.post(
   "/registration",
-  regValidate.registationRules(),
+  regValidate.registrationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 )

@@ -1,0 +1,3 @@
+1. The registration form now asks the user to type their password twice when creating an account as an additional layer of confirmation for password selection.
+    Both password entries are passed through client-side and server-side validation.
+2. 

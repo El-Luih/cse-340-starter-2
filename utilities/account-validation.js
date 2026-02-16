@@ -7,7 +7,7 @@ const validate = {}
 /*  **********************************
   *  Registration Data Validation Rules
   * ********************************* */
-validate.registationRules = () => {
+validate.registrationRules = () => {
     return [
       // firstname is required and must be string
       body("account_firstname")
@@ -53,6 +53,25 @@ validate.registationRules = () => {
           minSymbols: 1,
         })
         .withMessage("Password does not meet requirements."),
+      
+      //New validation rule to validate the confirm_password pattern and compare it to the entered password.
+      body("confirm_password")
+        .trim()
+        .notEmpty()
+        .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+        .withMessage("Password confirmation does not meet requirements.")
+        .custom((confirm_password, { req }) => {
+            if (confirm_password !== req.body.account_password) {
+              throw new Error("Your password confirmation must match your given password")
+          }
+          return true
+          })
     ]
 }
   
@@ -212,7 +231,26 @@ validate.updatePasswordRules = () => {
           minNumbers: 1,
           minSymbols: 1,
         })
-        .withMessage("Enter a valid password.")
+      .withMessage("Enter a valid password."),
+    
+    //New validation rule to validate the confirm_password pattern and compare it to the entered password.
+    body("confirm_password")
+        .trim()
+        .notEmpty()
+        .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+        .withMessage("Password confirmation does not meet requirements.")
+        .custom((confirm_password, { req }) => {
+            if (confirm_password !== req.body.account_password) {
+              throw new Error("Your password confirmation must match your given password")
+          }
+          return true
+          })
   ]
 }
 

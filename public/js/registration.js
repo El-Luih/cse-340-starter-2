@@ -1,11 +1,5 @@
-const form = document.querySelector("#account-details-form")
-    form.addEventListener("change", function () {
-      const updateBtn = document.querySelector("#details-submit")
-      updateBtn.removeAttribute("disabled")
-    })
-
-
 //Compares and validates password confirmation
+
 const password = document.querySelector("#account_password")
 const confirmPassword = document.querySelector("#confirm_password")
 

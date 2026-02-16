@@ -381,6 +381,7 @@ h1#login-title,
   margin: 0 auto;
   width: 80%;
   max-width: 300px;
+  padding: 1rem 0;
 }
 
 .flash-messages .error {

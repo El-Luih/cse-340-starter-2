@@ -78,6 +78,11 @@ being evaluated with the assignment, and just changed some trivial aspects of it
             <span class="label-field-name">New Password:</span>
             <input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd">
         </label>
+        <%# New password confirmation field. Client-side validated with JS %>
+        <label>
+            <span class="label-field-name">Confirm Password:</span>
+            <input type="password" name="confirm_password" id="confirm_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="sEcur3p@ssw0rd">
+        </label>
         <button type="submit" class="button" id="password-submit">Update</button>
         <ul class="form-indications">
             <li>This will CHANGE your password.</li>
@@ -90,6 +95,8 @@ being evaluated with the assignment, and just changed some trivial aspects of it
                     <li>not contain whitespaces.</li>
                 </ul>
             </li>
+            <%# New instruction for clarification %>
+            <li>You must enter your password again in the Confirm Password field</li>
         </ul>
     </form>
 </div>
