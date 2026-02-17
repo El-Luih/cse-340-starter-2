@@ -25,7 +25,7 @@ router.get(
   utilities.handleErrors(accountController.buildAccountDetailsView)
 )
 //ENHANCEMENT
-//Delete user account
+//Delete user account confirmation
 //Requires a logged-in user
 //Only non-corporate accounts can access this route.
 router.get(
@@ -33,6 +33,38 @@ router.get(
   utilities.checkLogin,
   utilities.checkNonCorporate,
   utilities.handleErrors(accountController.deleteOwnConfirmationView)
+)
+//ENHANCEMENT
+//Manage personnel
+//Requires a logged-in user
+//Only admins and the owner
+router.get(
+  "/personnel",
+  utilities.checkLogin,
+  utilities.checkAdminOwner,
+  utilities.handleErrors(accountController.buildPersonnelView)
+)
+//ENHANCEMENT
+//Delete confirm view for an account of a specified type
+//Requires a logged in user
+//Only admins and owner
+//If the account is admin type, only the owner can access
+router.get(
+  "/personnel/delete/:account_id",
+  utilities.checkLogin,
+  utilities.checkNecessaryAccess,
+  utilities.handleErrors(accountController.personnelDeleteView)
+)
+//ENHANCEMENT
+//Change access view for an account of a specified type
+//Requires a logged in user
+//Only admins and owner
+//If the account is admin type, only the owner can access
+router.get(
+  "/personnel/access/:account_id",
+  utilities.checkLogin,
+  utilities.checkNecessaryAccess,
+  utilities.handleErrors(accountController.personnelAccessView)
 )
 
 /*
@@ -50,6 +82,8 @@ account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r
 account_email: lelelolo@gmail.com
 account_password:  S0goodYE$2026
+
+//OWNER
 account_email: lamarash@gmail.com
 account_password: I@mth3Owner02
 */
@@ -100,6 +134,64 @@ router.post(
   regValidate.checkDeleteOwnData,
   utilities.handleErrors(accountController.deleteOwnAccount)
 )
-
-
+//ENHANCEMENT
+//Deletes an account of a specified type
+//Requires a logged in user
+//Only admins and owner
+//If the account is admin type, only the owner can access
+router.post(
+  "/personnel/delete",
+  utilities.checkLogin,
+  utilities.checkAdminOwner,
+  regValidate.deletePersonnelRules(),
+  regValidate.checkDeletePersonnelData,
+  utilities.handleErrors(accountController.deletePersonnelAccount)
+)
+//ENHANCEMENT
+//Changes access for an account of a specified type
+//Requires a logged in user
+//Only admins and owner
+//If the account is admin type, only the owner can access
+router.post(
+  "/personnel/access",
+  utilities.checkLogin,
+  utilities.checkAdminOwner,
+  regValidate.changeAccessRules(),
+  regValidate.checkChangeAccessData,
+  utilities.handleErrors(accountController.changePersonnelAccess)
+)
 module.exports = router;
+
+
+/* 
+1. James Holloway | james.holloway@email.com | Sunflower!492 | Client
+2. Maria Trevino | maria.trevino@email.com | Bluebird8!17x | Employee
+3. Derek Saunders | derek.saunders@email.com | Rainstorm@653 | Client
+4. Priya Nair | priya.nair@email.com | Goldfish!234k | Admin
+5. Ethan Caldwell | ethan.caldwell@email.com | Thunder@9012 | Client
+6. Sofia Marchetti | sofia.marchetti@email.com | Pineapple@378 | Employee
+7. Marcus Webb | marcus.webb@email.com | Ironclad!567w | Client
+8. Yuna Choi | yuna.choi@email.com | Snowfall@1249 | Employee
+9. Aaron Fitzgerald | aaron.fitzgerald@email.com | Crimson@789x | Client
+10. Layla Okafor | layla.okafor@email.com | Marble!4567j | Admin
+11. Nathan Voss | nathan.voss@email.com | Eclipse@3120 | Client
+12. Camille Rousseau | camille.rousseau@email.com | Harvest@645m | Employee
+13. Tyler Henson | tyler.henson@email.com | Cobalt!8234 | Client
+14. Amara Diallo | amara.diallo@email.com | Whisper@197n | Employee
+15. Logan Petersen | logan.petersen@email.com | Volcano@5341 | Client
+16. Ingrid Solberg | ingrid.solberg@email.com | Lantern!2689 | Admin
+17. Carlos Mendoza | carlos.mendoza@email.com | Phantom@743p | Client
+18. Zoe Whitfield | zoe.whitfield@email.com | Dagger@5912 | Employee
+19. Elijah Boateng | elijah.boateng@email.com | Falcon!8472 | Client
+20. Nina Kowalski | nina.kowalski@email.com | Serpent@2067 | Employee
+21. Ryan Callahan | ryan.callahan@email.com | Boulder@7134 | Client
+22. Fatima Hassan | fatima.hassan@email.com | Cinder!3520 | Admin
+23. Owen Blackwood | owen.blackwood@email.com | Magnet@6891 | Client
+24. Leila Nazari | leila.nazari@email.com | Torrent@4213 | Employee
+25. Isaac Drummond | isaac.drummond@email.com | Shroud!9752 | Client
+26. Vera Sokolova | vera.sokolova@email.com | Amber@1389v | Employee
+27. Felix Brandt | felix.brandt@email.com | Glacier@8641 | Client
+28. Amina Yusuf | amina.yusuf@email.com | Prism!2479a | Admin
+29. Joel Strickland | joel.strickland@email.com | Vortex@5932 | Client
+30. Hana Fujimoto | hana.fujimoto@email.com | Ember@3162j | Employee
+*/

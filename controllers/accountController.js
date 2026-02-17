@@ -288,7 +288,7 @@ accountController.updateAccountPassword = async (req, res, next) => {
 ////////////GET Delete Account Confirmation////////////
 //All data is retrieved from JWS decrypted data.
 accountController.deleteOwnConfirmationView = async (req, res, next) => {
-      let nav = await utilities.getNav();
+    let nav = await utilities.getNav();
         res.render("./account/delete-own", {
           title: "Delete Your Account",
           nav,
@@ -310,10 +310,117 @@ accountController.deleteOwnAccount = async (req, res, next) => {
         res.clearCookie("jwt")
         return res.redirect("/account/login")
     } else {
-        req.flash("notice", "Your account couldn't be deleted")
-        req.flash("notice", "Contact technical support")
+        req.flash("error", "Your account couldn't be deleted")
+        req.flash("error", "Contact technical support")
         return res.redirect("/account")
     }
 }
+
+////////////ENHANCEMENT////////////
+////////////GET Manage Personnel View////////////
+accountController.buildPersonnelView = async (req, res, next) => {
+    let nav = await utilities.getNav()
+    const userId = res.locals.accountData.account_id
+    const userData = await accountModel.getAccountByID(userId)
+    const accountType = userData.account_type
+    let employeesTable = await utilities.buildPersonnelTable("Employee")
+    let clientsTable = await utilities.buildPersonnelTable("Client")
+    let adminsTable
+    if (accountType === "Owner") {
+        adminsTable = await utilities.buildPersonnelTable("Admin")
+    } else {
+        adminsTable = null
+    }
+    res.render("account/personnel", {
+        title: "Manage Personnel",
+        nav,
+        errors: null,
+        account_type: accountType,
+        employeesTable,
+        clientsTable,
+        adminsTable
+    })
+}
+
+////////////ENHANCEMENT////////////
+////////////GET Personnel delete confirm view////////////
+accountController.personnelDeleteView = async (req, res, next) => {
+    const account_id = parseInt(req.params.account_id)
+    let nav = await utilities.getNav();
+    const personnelData = await accountModel.getAccountByID(account_id)
+    const personnelType = personnelData.account_type
+        res.render("./account/delete-personnel", {
+            title: "Delete " + personnelType,
+            nav,
+            errors: null,
+            account_firstname: personnelData.account_firstname,
+            account_lastname: personnelData.account_lastname,
+            account_email: personnelData.account_email,
+            account_type: personnelType,
+            account_id: account_id
+      })
+}
+
+////////////ENHANCEMENT////////////
+////////////GET Personnel access change view////////////
+accountController.personnelAccessView = async (req, res, next) => {
+    const account_id = parseInt(req.params.account_id)
+    const userId = res.locals.accountData.account_id
+    const userData = await accountModel.getAccountByID(userId)
+    let nav = await utilities.getNav()
+    const personnelData = await accountModel.getAccountByID(account_id)
+    let typesList = await utilities.buildPersonnelAccountTypeList(personnelData.account_type, userData.account_type)
+    res.render("./account/access-personnel", {
+        title: "Change Access",
+        nav,
+        errors: null,
+        account_firstname: personnelData.account_firstname,
+        account_lastname: personnelData.account_lastname,
+        account_email: personnelData.account_email,
+        account_id: account_id,
+        typesList: typesList
+      })
+}
+
+////////////ENHANCEMENT////////////
+////////////POST Delete personnel account////////////
+accountController.deletePersonnelAccount = async (req, res, next) => {
+    const { account_id } = req.body
+
+    const deleteResult = await accountModel.deleteAccountById(account_id)
+
+    if (deleteResult) {
+        req.flash("notice", "The account was deleted")
+        return res.redirect("/account/personnel")
+    } else {
+        req.flash("error", "The account couldn't be deleted")
+        req.flash("error", "Contact technical support")
+        return res.redirect("/account/personnel")
+    }
+}
+
+
+////////////ENHANCEMENT////////////
+////////////POST Change personnel access////////////
+accountController.changePersonnelAccess = async (req, res, next) => {
+    const { account_id, account_type } = req.body
+
+    const updateResults = await accountModel.updateAccountType(account_id, account_type)
+
+    if (updateResults) {
+        req.flash(
+            "notice",
+            `The access of ${updateResults.account_firstname}'s account has been changed to ${updateResults.account_type}.`
+        )
+        res.status(201).redirect("/account/personnel")
+    } else {
+        req.flash(
+            "error",
+            "The access of the account couldn't be changed"
+        )
+        res.status(501).redirect("/account/personnel")
+    }
+}
+
 
 module.exports = accountController;

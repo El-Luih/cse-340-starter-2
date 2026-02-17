@@ -7,7 +7,7 @@ accountModel.postAccount = async function (account_firstname, account_lastname, 
         const sql = "INSERT INTO public.account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
         return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
     } catch (error) {
-        return error.message
+        throw new Error (error)
   }
 }
 
@@ -20,7 +20,7 @@ accountModel.checkExistingEmail = async function (account_email) {
         const email = await pool.query(sql, [account_email])
         return email.rowCount
     } catch (error) {
-        console.error(error)
+        throw new Error (error)
     }
 }
 
@@ -33,7 +33,7 @@ accountModel.checkExistingID = async function (account_id) {
         const ID = await pool.query(sql, [account_id])
         return ID.rowCount
     } catch (error) {
-        console.error(error)
+        throw new Error (error)
         return false
     }
 }
@@ -58,7 +58,7 @@ accountModel.getAccountByID = async (account_id) => {
         [account_id])
         return result.rows[0]
     } catch (error) {
-        console.error(error)
+        throw new Error (error)
     }
 }
 
@@ -80,7 +80,7 @@ accountModel.updateDetails = async function(
         ])
         return data.rows[0]
     } catch (error) {
-        console.error("model error: " + error)
+        throw new Error ("model error: " + error)
     }
 }
 
@@ -98,7 +98,7 @@ accountModel.updatePassword = async function(
         ])
         return data.rows[0]
     } catch (error) {
-        console.error("model error: " + error)
+        throw new Error("model error: " + error)
     }
 }
 
@@ -108,9 +108,43 @@ accountModel.deleteAccountById = async (account_id) => {
     try {
         const sql = "DELETE FROM account WHERE account_id = $1"
         const data = await pool.query(sql, [account_id])
-        return data
+        return data.rowCount > 0
     } catch (error) {
-        new Error("Model error: " + error)
+        throw new Error("Model error: " + error)
+    }
+}
+
+
+//ENHANCEMENT
+//Get accounts by account type
+accountModel.getAccountsByAccountType = async (account_type) => {
+    try {
+        const result = await pool.query(
+        'SELECT * FROM account WHERE account_type = $1',
+        [account_type])
+        return result.rows
+    } catch (error) {
+        throw new Error("No matching account found")
+    }
+}
+
+
+//ENHANCEMENT
+//Change account type
+accountModel.updateAccountType = async function(
+    account_id,
+    account_type
+) {
+    try {
+        const sql =
+        "UPDATE public.account SET account_type = $1 WHERE account_id = $2 RETURNING *"
+        const data = await pool.query(sql, [
+            account_type,
+            account_id
+        ])
+        return data.rows[0]
+    } catch (error) {
+        throw new Error ("model error: " + error)
     }
 }
 

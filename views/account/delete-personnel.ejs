@@ -1,0 +1,60 @@
+<h1 id="delete-personnel-title"><%= title %> </h1>
+<h2 class="title-flavor">Confirm Deletion</h2>
+
+<h3 class="delete-confirm-warning">THE DELETION IS PERMANENT</h3>
+
+<div class="flash-messages">
+    <%- messages() %>
+    <% if (errors) { %>
+        <ul class="error">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+        <%  }) %>
+        </ul>
+    <% } %>
+</div>
+
+<form id="delete-personnel-form" class="submission-form" action="/account/personnel/delete" method="post">
+    <input type="hidden" name="account_id" id="account_id" value="<%= locals.account_id %>">
+    <label>
+        <span class="label-field-name">First Name:</span>
+        <input 
+            readonly
+            type="text" 
+            name="account_firstname" 
+            id="account_firstname"
+            required
+            value="<%= locals.account_firstname %>">
+    </label>
+    <label>
+        <span class="label-field-name">Last Name:</span>
+        <input 
+            readonly
+            type="text" 
+            name="account_lastname" 
+            id="account_lastname"
+            required
+            value="<%= locals.account_lastname %>">
+    </label>
+    <label>
+        <span class="label-field-name">Email:</span>
+        <input 
+            readonly
+            type="email" 
+            name="account_email"
+            id="account_email"
+            required
+            value="<%= locals.account_email %>">
+    </label>
+    <label>
+        <span class="label-field-name">Account Type:</span>
+        <input 
+            readonly
+            type="text" 
+            name="account_type" 
+            id="account_type"
+            required
+            value="<%= locals.account_type %>">
+    </label>
+    <button type="submit" class="button delete-button">DELETE</button>
+</form>

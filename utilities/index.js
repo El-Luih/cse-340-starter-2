@@ -161,7 +161,7 @@ Util.checkJWTToken = (req, res, next) => {
 
 ///////Check Admin and Employee///////
 Util.checkAdminEmployee = async (req, res, next) => {
-  //The account type verfication process now retrieves the accoun_type from the Database.
+  //The account type verfication process now retrieves the account_type from the Database.
   //This fixes a vulnerability where a logged-in user whose credentials were changed mid-session could still have access to the admin functions by being in posession of a JWT with that accoun type.
   const userId = res.locals.accountData.account_id
   const userData = await accountModel.getAccountByID(userId)
@@ -175,7 +175,7 @@ Util.checkAdminEmployee = async (req, res, next) => {
   }
 }
  
-
+///////ENHANCEMENT///////
 ///////Check Non-corporate Account///////
 Util.checkNonCorporate = async (req, res, next) => {
   const userId = res.locals.accountData.account_id
@@ -188,7 +188,114 @@ Util.checkNonCorporate = async (req, res, next) => {
     req.flash("error", "Corporate accounts must be deleted by corporate management.")
     return res.redirect("/account")
   }
- }
+}
+ 
+///////ENHANCEMENT///////
+///////Check Admin and Owner Accounts///////
+Util.checkAdminOwner = async (req, res, next) => {
+  const userId = res.locals.accountData.account_id
+  const userData = await accountModel.getAccountByID(userId)
+  //Allows access only to admins and the owner.
+  if (userData.account_type === "Admin" || userData.account_type === "Owner") {
+    next()
+  } else {
+    req.flash("error", "Insufficient credentials.")
+    return res.redirect("/account")
+  }
+}
+
+///////ENHANCEMENT///////
+///////Build employees table///////
+Util.buildPersonnelTable = async (account_type) => {
+  const personnelData = await accountModel.getAccountsByAccountType(account_type)
+  let tableData = `
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>${account_type} Name</th>
+        <th>Email</th>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </thead>
+    <tbody>
+  `
+  personnelData.forEach((row) => {
+    tableData += `
+      <tr>
+        <td>${row.account_id}</td>
+        <td>${row.account_firstname} ${row.account_lastname}</td>
+        <td>${row.account_email}</td>
+        <td><a href='/account/personnel/access/${row.account_id}' title='Click to change access level'>Access</a></td>
+        <td><a href='/account/personnel/delete/${row.account_id}' title='Click to delete account'>Delete</a></td>
+      </tr>
+    `
+  })
+  tableData += "</tbody>"
+  return tableData
+}
+
+///////ENHANCEMENT///////
+///////Check Admin and Owner Accounts for GET///////
+Util.checkNecessaryAccess = async (req, res, next) => {
+  const userId = res.locals.accountData.account_id
+  const userData = await accountModel.getAccountByID(userId)
+  const userAccess = userData.account_type
+  const requestID = parseInt(req.params.account_id)
+  const requestData = await accountModel.getAccountByID(requestID)
+  const requestAccess = requestData.account_type
+  if (requestAccess === "Admin") {
+    if (userAccess === "Owner") {
+      next()
+    } else {
+      req.flash("error", "Only the Owner can manage Admin accounts.")
+      return res.redirect("/account/personnel")
+    }
+  } else if (requestAccess === "Owner") {
+    req.flash("error", "The Owner cannot be managed.")
+    return res.redirect("/account")
+  } else {
+    if (userAccess === "Owner" || userAccess === "Admin") {
+      next()
+    } else {
+      req.flash("error", "Insufficient credentials.")
+      return res.redirect("/account")
+    }
+  }
+ 
+}
+
+///////ENHANCEMENT///////
+///////Build account type list///////
+//Only used in the access-personnel.ejs view
+Util.buildPersonnelAccountTypeList = async function (account_type = null, request_access) {
+  let typesList = `
+    <select name="account_type" id="account_type" required>
+      <option value='' disabled
+  `
+  if (account_type == null) {
+    typesList +=" selected"
+  }
+  typesList += `
+    >Choose an Access Type</option>
+  `
+  let availableTypes = []
+  if (request_access === "Owner") {
+    availableTypes.push("Admin")
+  } 
+  availableTypes.push("Client", "Employee")
+
+  availableTypes.forEach((type) => {
+    typesList += `<option value="${type}"`
+    if (account_type != null && type == account_type) {
+      typesList += " selected "
+    }
+    typesList += `>${type}</option>`
+  })
+  typesList += "</select>"
+
+  return typesList
+}
 
 
 /* ****************************************

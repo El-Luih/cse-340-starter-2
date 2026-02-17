@@ -1,6 +1,7 @@
 /******* Global Variables ***************/
 :root {
   --primary-color: rgb(36,35,51);
+  --fade-primary-color: rgb(97, 94, 141);
   --secondary-color: rgb(0,176,211);
   --third_color: #035bff;
   --faded-color: rgba(255, 255, 255, 0.785);
@@ -133,8 +134,15 @@ nav ul li a:hover {
 }
 /* Body */
 
+.welcome-link {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .user-name {
   color: var(--third_color);
+  display: block;
 }
 
 h1, h2 {
@@ -436,6 +444,11 @@ h1#login-title,
   background-color: var(--invalid-color);
 }
 
+.submission-form input:read-only {
+  background-color: var(--fade-primary-color);
+  color: white;
+}
+
 .submission-form select:required:invalid,
 .submission-form select:focus:invalid{
   color: rgba(255, 255, 255, 0.605);
@@ -507,7 +520,7 @@ h1#error-title {
 
 .urls-grid {
   display: grid;
-  gap: 2rem 0;
+  gap: 2rem;
   margin: 4rem auto;
 }
 
@@ -653,6 +666,10 @@ h1#delete-inventory-title {
     background-image: url("/images/site/small_check.jpg");
   }
 
+  .welcome-link {
+    margin-right: 1rem;
+  }
+
   .button:hover {
     background-color: var(--primary-color);
     color: white;
@@ -782,7 +799,7 @@ h1#delete-inventory-title {
   /*MANAGEMENT PAGE STYLING*/
 
   .urls-grid {
-    gap: 0 2rem;
+    gap: 2rem;
     grid-template-columns: 1fr 1fr;
   }
 

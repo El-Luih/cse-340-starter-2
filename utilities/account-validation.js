@@ -325,8 +325,110 @@ validate.checkDeleteOwnData = async (req, res, next) => {
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
-    let nav = await utilities.getNav()
     return res.redirect("/account")
+  }
+  next()
+}
+
+///////////ENHANCEMENT///////////
+///////////DELETE PERSONNEL ACCOUNT VALIDATION///////////
+//The target account id is validated, and so are the necessary credentials of the requester.
+validate.deletePersonnelRules = () => {
+  return [
+    body("account_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Invalid request data. Refer to the proper channel to try again.")
+      .custom(async function (account_id) {
+          const IDExist = await accountModel.checkExistingID(account_id)
+          if (IDExist == false) {
+              throw new Error("Invalid request data. Refer to the proper channel to try again.")
+          }
+      })
+      .custom(async function (account_id, { req }) {
+        const requestData = await accountModel.getAccountByID(account_id)
+        const requestAccountType = requestData.account_type
+        const userId = req.res.locals.accountData.account_id
+        const userData = await accountModel.getAccountByID(userId)
+        const userAccountType = userData.account_type
+        if (requestAccountType == "Admin" && userAccountType != "Owner") {
+          throw new Error("No credentials to manage admin users")
+        }
+        if (requestAccountType == "Owner") {
+          throw new Error("The Owner account can't be deleted")
+        }
+      })
+  ]
+}
+
+validate.checkDeletePersonnelData = async (req, res, next) => {
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.redirect("/account/personnel")
+  }
+  next()
+}
+
+
+///////////ENHANCEMENT///////////
+///////////CHANGE PERSONNEL ACCESS VALIDATION///////////
+//The target account id is validated, and so are the necessary credentials of the requester to change the target account based on their access
+//and the credentials to grant the target access level.
+validate.changeAccessRules = () => {
+  return [
+    body("account_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Invalid request data. Refer to the proper channel to try again.")
+      .custom(async function (account_id) {
+          const IDExist = await accountModel.checkExistingID(account_id)
+          if (IDExist == false) {
+              throw new Error("Invalid request data. Refer to the proper channel to try again.")
+          }
+      })
+      .custom(async function (account_id, { req }) {
+        const requestData = await accountModel.getAccountByID(account_id)
+        const requestAccountType = requestData.account_type
+        const userId = req.res.locals.accountData.account_id
+        const userData = await accountModel.getAccountByID(userId)
+        const userAccountType = userData.account_type
+        if (requestAccountType == "Admin" && userAccountType != "Owner") {
+          throw new Error("No credentials to manage admin users")
+        }
+        if (requestAccountType == "Owner") {
+          throw new Error("The Owner account access can't be changed")
+        }
+      }),
+    
+    body("account_type")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide an account type.")
+      .custom(async (account_type, {req}) => {
+        if (account_type !== "Admin" && account_type !== "Employee" && account_type !== "Client") {
+          throw new Error("Invalid account type")
+        }
+        const userId = req.res.locals.accountData.account_id
+        const userData = await accountModel.getAccountByID(userId)
+        const userAccountType = userData.account_type
+        if (account_type == "Admin" && userAccountType != "Owner") {
+          throw new Error("No credentials to give admin access")
+        }
+      })
+  ]
+}
+
+validate.checkChangeAccessData = async (req, res, next) => {
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.redirect("/account/personnel")
   }
   next()
 }

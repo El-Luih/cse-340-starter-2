@@ -1,0 +1,43 @@
+<%# This view allows admins to delete the accounts of clients and employees, and to change their access of level up to "employee" %>
+<%# The Owner can administrate admin accounts too, but the Owner account can't be deleted through this app for security purposes %>
+
+<h1 id="personnel-title"><%= title %></h1>
+<h2 class="title-flavor">Personnel Administration Tool.</h2>
+
+<div class="flash-messages">
+    <%- messages() %>
+    <% if (errors) { %>
+        <ul class="error">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <%  }) %>
+        </ul>
+    <% } %>
+</div>
+
+<div class="tables-grid personnel">
+    <div class="table-container">
+        <h2>Manage Employees</h2>
+        <table id="employees-table">
+            <%- locals.employeesTable %>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <h2>Manage Clients</h2>
+        <table id="clients-table">
+            <%- locals.clientsTable %>
+        </table>
+    </div>
+
+    <% if (locals.account_type === "Owner") { %>
+        <div class="table-container">
+            <h2>Manage Administrators</h2>
+            <table id="admins-table">
+                <%- locals.adminsTable %>
+            </table>
+        </div>
+    <% } %>
+    <%# <noscript class="no-js-warning">JavaScript must be enabled to use this page.</noscript> %>
+</div>
+

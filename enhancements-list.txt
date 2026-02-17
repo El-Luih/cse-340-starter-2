@@ -11,12 +11,14 @@
     Failure redirects to the Account Management view.
     Success redirects to the Login view.
 
-4. (Utilities account-validation.js) Data validation allows the user to submit an existing email IF that existing email is the one related to their account.
+4. (Utilities account-validation.js) 
+    Data validation allows the user to submit an existing email IF that existing email is the one related to their account.
     This is cheked using the account_id from the body.
     This allows the user to change only their name without having to change their email every single time if so they wish to do.
 
-5. (Database data type, Utilities index.js, account.ejs View, Account Router) Added a new account type value in the enum selection of the database. The Owner account should have
-    the same or higher level of access than the admin and employee account. 
+5. (Database data type, Utilities index.js, account.ejs View, Account Router) 
+    Added a new account type value in the enum selection of the database. 
+    The Owner account should have the role of a superuser in the system, having a higher level of access than the admin and employee accounts. 
     The appropriate changes to allow access to this new account type have been made.
     The credentials for the Owner account type are present in the accountRoute.js file.
 
@@ -32,24 +34,61 @@
     In a future update, only higher level corporate accounts can delete lower level corporate accounts.
     In the past, I've seen how giving too much access to employees over their corporate accounts can create a disaster in logistics.
 
+8. (Utilities [index.js, account-validation.js], 
+    [account.ejs, access-personnel.ejs, delete-personnel.ejs, personnel.ejs] Views
+    Account Router,
+    Account Controller,
+    Account Model,)
+    - Added new functionalities to higher management account like Admin and Owner.
+    - Admin and Owner accounts can now delete and change the account type of accounts of a lower access.
+    - Admin accounts CAN'T manage or delete admin accounts
+    - The Owner account can manage admin accounts, but can't be deleted, since it's a superuser.
+    - Added several new views, several new routes, several new functions, new model functions
+    - The personnel management view displays all available personnels for management to the user's level of access
+    - Added exhausting server-side data validation to avoid form tampering and credentials abuse.
+    - This was, by far, the most exhausting of all enhancements.
+
 New views
 - account/delete-own.ejs
+- account/access-personnel.ejs
+- account/delete-personnel.ejs
+- account/personnel.ejs
 
 New Controller Functions:
 - accountController.deleteOwnCofirmationView()
 - accountController.deleteOwnAccount()
+- accountController.buildPersonnelView()
+- accountController.personnelDeleteView()
+- accountController.personnelAccessView()
+- accountController.deletePersonnelAccount()
+- accountController.changePersonnelAccess()
 
 New Routes
 - GET account/delete
+- GET account/personnel
+- GET account/personnel/delete/:account_id
+- GET account/personnel/access/:account_id
 - POST account/delete
+- POST account/personnel/delete
+- POST account/personnel/access
 
 New Utility Functions
 - validate.deleteOwnRules()
 - validate.checkDeleteOwnData()
+- validate.deletePersonnelRules()
+- validate.checkDeletePersonnelData()
+- validate.changeAccessRules()
+- validate.checkChangeAccessData()
 - Util.checkNonCorporate()
+- Util.checkAdminOwner()
+- Util.buildPersonnelTable()
+- Util.checkNecessaryAccess()
+- Util.buildPersonnelTypeList()
 
 New Model Functions
 - accountModel.deleteAccountById()
+- accountModel.getAccountsByAccountType()
+- accountModel.updateAccountType()
 
 New Database Data type
 - account_type: Owner

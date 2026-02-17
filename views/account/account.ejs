@@ -41,6 +41,18 @@
             </p>
         </div>
     <% } %>
+    <%# Enables the new "Manage Personnel" view only for Admins and the Owner %>
+    <% if (locals.account_type === "Admin" || locals.account_type === "Owner") { %>
+        <div class="url-container">
+            <p class="account-management">Personnel Management</p>
+            <p><a
+                class="button account-management" 
+                title="Go to the personnel management page"
+                href="/account/personnel"
+                >Visit</a>
+            </p>
+        </div>
+    <% } %>
 </div>
 
 
