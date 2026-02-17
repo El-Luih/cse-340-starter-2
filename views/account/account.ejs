@@ -44,8 +44,9 @@
 </div>
 
 
-<%# New button to delete the user account. Only accessible to client accounts.
-For now, all account types can delete their own account. %>
-<h2 class="subtitle">Delete Your Account</h2>
-<a href='/account/delete' title='Click to delete your account' class="button delete-button account">Delete Account</a>
-
+<%# Only non-corporate accounts can delete their accounts by their own. Corporate flow integrity measure %>
+<% if (locals.account_type == "Client") { %>
+    <%# New button to delete the user account. Only accessible to client accounts. %>
+    <h2 class="subtitle">Delete Your Account</h2>
+    <a href='/account/delete' title='Click to delete your account' class="button delete-button account">Delete Account</a>
+<% } %>

@@ -27,9 +27,11 @@ router.get(
 //ENHANCEMENT
 //Delete user account
 //Requires a logged-in user
+//Only non-corporate accounts can access this route.
 router.get(
   "/delete",
-  utilities.checkLogin,  
+  utilities.checkLogin,
+  utilities.checkNonCorporate,
   utilities.handleErrors(accountController.deleteOwnConfirmationView)
 )
 
@@ -47,7 +49,7 @@ account_lastname: User
 account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r
 account_email: lelelolo@gmail.com
-account_password:  S0goodYE$2026 N0t$ogood2026
+account_password:  S0goodYE$2026
 account_email: lamarash@gmail.com
 account_password: I@mth3Owner02
 */
@@ -89,9 +91,11 @@ router.post(
 //ENHANCEMENT
 //Delete the own account of the user
 //Requires a logged in user
+//Only non-corporate accounts can access this route.
 router.post(
   "/delete",
   utilities.checkLogin,
+  utilities.checkNonCorporate,
   regValidate.deleteOwnRules(),
   regValidate.checkDeleteOwnData,
   utilities.handleErrors(accountController.deleteOwnAccount)

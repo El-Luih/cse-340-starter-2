@@ -173,6 +173,21 @@ Util.checkAdminEmployee = async (req, res, next) => {
     req.flash("error", "Insufficient credentials.")
     return res.redirect("/account/login")
   }
+}
+ 
+
+///////Check Non-corporate Account///////
+Util.checkNonCorporate = async (req, res, next) => {
+  const userId = res.locals.accountData.account_id
+  const userData = await accountModel.getAccountByID(userId)
+  
+  //Allows access to the new Owner account type.
+  if (userData.account_type === "Client") {
+    next()
+  } else {
+    req.flash("error", "Corporate accounts must be deleted by corporate management.")
+    return res.redirect("/account")
+  }
  }
 
 

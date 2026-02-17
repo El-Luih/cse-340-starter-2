@@ -2,7 +2,7 @@
     The registration form now asks the user to type their password twice when creating an account as an additional layer of confirmation for password selection.
     Both password entries are passed through client-side and server-side validation.
 
-2. (Account Controller, details.ejs View, Account Model query, Utilities account-validation.js) 
+2. (Utilities account-validation.js, Account Controller, details.ejs View, Account Model query) 
     The user must provide their current password in order to change to a new one or to change their information.
 
 3. (Account Controller, account.ejs and delet-own.ejs Views, Account Model delete, Account Router)
@@ -26,6 +26,12 @@
     admin functions. 
     This also allows credential changes take immediate effect, even when mid-session.
 
+7. (Utilities index.js, account.ejs View, Account Router delete POST and GET routes) Restricted the ability of corporate accounts (employee, admin, owner) to be deleted on their own.
+    This ensures the integrity of the corporate authority flow.
+    Access to both the GET and POST delete routes have been blocked.
+    In a future update, only higher level corporate accounts can delete lower level corporate accounts.
+    In the past, I've seen how giving too much access to employees over their corporate accounts can create a disaster in logistics.
+
 New views
 - account/delete-own.ejs
 
@@ -38,8 +44,9 @@ New Routes
 - POST account/delete
 
 New Utility Functions
-- validation.deleteOwnRules()
-- validation.checkDeleteOwnData()
+- validate.deleteOwnRules()
+- validate.checkDeleteOwnData()
+- Util.checkNonCorporate()
 
 New Model Functions
 - accountModel.deleteAccountById()
