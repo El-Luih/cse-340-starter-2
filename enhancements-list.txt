@@ -17,7 +17,7 @@
     This allows the user to change only their name without having to change their email every single time if so they wish to do.
 
 5. (Database data type, Utilities index.js, account.ejs View, Account Router) 
-    Added a new account type value in the enum selection of the database. 
+    Added a new superuser account type value "Owner" in the enum selection of the database. 
     The Owner account should have the role of a superuser in the system, having a higher level of access than the admin and employee accounts. 
     The appropriate changes to allow access to this new account type have been made.
     The credentials for the Owner account type are present in the accountRoute.js file.

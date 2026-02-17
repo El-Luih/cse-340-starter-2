@@ -67,27 +67,6 @@ router.get(
   utilities.handleErrors(accountController.personnelAccessView)
 )
 
-/*
-account_firstname: Basic
-account_lastname: Client
-account_email: basic@340.edu
-account_password: I@mABas1cCl!3nt
-account_firstname: Happy
-account_lastname: Employee
-account_email: happy@340.edu
-account_password: I@mAnEmpl0y33
-account_firstname: Manager
-account_lastname: User
-account_email: manager@340.edu
-account_password: I@mAnAdm!n1strat0r
-account_email: lelelolo@gmail.com
-account_password:  S0goodYE$2026
-
-//OWNER
-account_email: lamarash@gmail.com
-account_password: I@mth3Owner02
-*/
-
 //POST REQUESTS
 // Process the registration data
 router.post(
@@ -161,6 +140,28 @@ router.post(
   utilities.handleErrors(accountController.changePersonnelAccess)
 )
 module.exports = router;
+
+
+/*
+account_firstname: Basic
+account_lastname: Client
+account_email: basic@340.edu
+account_password: I@mABas1cCl!3nt
+account_firstname: Happy
+account_lastname: Employee
+account_email: happy@340.edu
+account_password: I@mAnEmpl0y33
+account_firstname: Manager
+account_lastname: User
+account_email: manager@340.edu
+account_password: I@mAnAdm!n1strat0r
+account_email: lelelolo@gmail.com
+account_password:  S0goodYE$2026
+
+//OWNER
+account_email: lamarash@gmail.com
+account_password: I@mth3Owner02
+*/
 
 
 /* 
