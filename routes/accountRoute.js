@@ -3,7 +3,6 @@ const express = require('express')
 const router = express.Router()
 const accountController = require('../controllers/accountController')
 const utilities = require('../utilities')
-const validate = require('../utilities/account-validation')
 
 //GET REQUESTS
 //Account Mangement View
