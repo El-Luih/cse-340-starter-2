@@ -160,7 +160,8 @@ Util.checkJWTToken = (req, res, next) => {
 ///////Check Admin and Employee///////
 Util.checkAdminEmployee = (req, res, next) => {
   const userData = res.locals.accountData
-  if (userData.account_type === "Admin" || userData.account_type === "Employee") {
+  //Allows access to the new Owner account type.
+  if (userData.account_type === "Admin" || userData.account_type === "Employee" || userData.account_type === "Owner") {
     next()
   } else {
     req.flash("error", "Insufficient credentials.")

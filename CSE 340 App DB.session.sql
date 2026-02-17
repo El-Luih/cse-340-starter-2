@@ -1,2 +1,2 @@
 SELECT *
-From public.account;
+From account;

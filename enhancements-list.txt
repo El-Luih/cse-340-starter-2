@@ -15,6 +15,11 @@
     This is cheked using the account_id from the body.
     This allows the user to change only their name without having to change their email every single time if so they wish to do.
 
+5. (Database data type, Utilities index.js, account.ejs View, Account Router) Added a new account type value in the enum selection of the database. The Owner account should have
+    the same or higher level of access than the admin and employee account. 
+    The appropriate changes to allow access to this new account type have been made.
+    The credentials for the Owner account type are present in the accountRoute.js file.
+
 New views
 - account/delete-own.ejs
 
@@ -32,6 +37,9 @@ New Utility Functions
 
 New Model Functions
 - accountModel.deleteAccountById()
+
+New Database Data type
+- account_type: Owner
 
 Several modifications.
 
