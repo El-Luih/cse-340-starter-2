@@ -14,8 +14,9 @@
     <% } %>
 </div>
 
-<%# Check for the new Owner account type. %>
-<div <% if (locals.accountData.account_type === "Admin" || locals.accountData.account_type === "Employee" || locals.accountData.account_type === "Owner") { %>
+<%# Checks for the new Owner account type. %>
+<%# Now retrieves the account_type from the database %>
+<div <% if (locals.account_type === "Admin" || locals.account_type === "Employee" || locals.account_type === "Owner") { %>
     class="urls-grid"
     <% } %>>
     <div class="url-container">
@@ -28,7 +29,8 @@
         </p>
     </div>
 <%# Allows access to the new Owner accoun type. %>
-    <% if (locals.accountData.account_type === "Admin" || locals.accountData.account_type === "Employee" || locals.accountData.account_type === "Owner") { %>
+<%# Now retrieves the account_type from the database %>
+    <% if (locals.account_type === "Admin" || locals.account_type === "Employee" || locals.account_type === "Owner") { %>
         <div class="url-container">
             <p class="account-management">Inventory Management</p>
             <p><a

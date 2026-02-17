@@ -11,7 +11,7 @@
     Failure redirects to the Account Management view.
     Success redirects to the Login view.
 
-4. (Utility account-validation.js) Data validation allows the user to submit an existing email IF that existing email is the one related to their account.
+4. (Utilities account-validation.js) Data validation allows the user to submit an existing email IF that existing email is the one related to their account.
     This is cheked using the account_id from the body.
     This allows the user to change only their name without having to change their email every single time if so they wish to do.
 
@@ -19,6 +19,12 @@
     the same or higher level of access than the admin and employee account. 
     The appropriate changes to allow access to this new account type have been made.
     The credentials for the Owner account type are present in the accountRoute.js file.
+
+6. (Utilities index.js, Account Controller, account.ejs View) The account type verification process now retrieves the accoun type directly from the database when determining 
+    authorization, instead of retrieving it from a JWT. 
+    This fixes a vulnerability where a logged-in user whose credentials are changed mid-session could still have access to 
+    admin functions. 
+    This also allows credential changes take immediate effect, even when mid-session.
 
 New views
 - account/delete-own.ejs

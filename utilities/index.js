@@ -1,6 +1,8 @@
 const invModel = require("../models/inventory-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
+//Imported the account model to retrieve account data from the database.
+const accountModel = require("../models/account-model")
 
 const Util = {}
 
@@ -158,8 +160,12 @@ Util.checkJWTToken = (req, res, next) => {
  
 
 ///////Check Admin and Employee///////
-Util.checkAdminEmployee = (req, res, next) => {
-  const userData = res.locals.accountData
+Util.checkAdminEmployee = async (req, res, next) => {
+  //The account type verfication process now retrieves the accoun_type from the Database.
+  //This fixes a vulnerability where a logged-in user whose credentials were changed mid-session could still have access to the admin functions by being in posession of a JWT with that accoun type.
+  const userId = res.locals.accountData.account_id
+  const userData = await accountModel.getAccountByID(userId)
+  
   //Allows access to the new Owner account type.
   if (userData.account_type === "Admin" || userData.account_type === "Employee" || userData.account_type === "Owner") {
     next()

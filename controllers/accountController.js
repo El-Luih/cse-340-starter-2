@@ -124,10 +124,15 @@ accountController.accountLogin = async (req, res) => {
 ////////////GET Account Management View////////////
 accountController.buildAccountManagement = async (req, res, next) => {
     let nav = await utilities.getNav()
+    //Now retrieves and passes the account_type from the database to fix a vulnerability.
+    const userId = res.locals.accountData.account_id
+    const userData = await accountModel.getAccountByID(userId)
+    const accountType = userData.account_type
     res.render("account/account", {
         title: "Account Management",
         nav,
-        errors: null
+        errors: null,
+        account_type: accountType
     })
 }
 
