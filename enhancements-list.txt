@@ -1,9 +1,9 @@
-1. (Utilities, details.ejs and registration.ejs Views) 
+1. (Utilities account-validation.js, details.ejs and registration.ejs Views) 
     The registration form now asks the user to type their password twice when creating an account as an additional layer of confirmation for password selection.
     Both password entries are passed through client-side and server-side validation.
 
-2. (Account Controller, details.ejs View, Account Model query) 
-    The user must provide their current password in order to change to a new one.
+2. (Account Controller, details.ejs View, Account Model query, Utilities account-validation.js) 
+    The user must provide their current password in order to change to a new one or to change their information.
 
 3. (Account Controller, account.ejs and delet-own.ejs Views, Account Model delete, Account Router)
     Users can now delete their accounts from the Account Management view.

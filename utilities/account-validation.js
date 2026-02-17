@@ -183,7 +183,20 @@ validate.updateDetailsRules = () => {
         if (emailExists){
           throw new Error("Email exists. Please change to a different email")
         }
-      })
+      }),
+    
+    //New validation rule for the current password confirmation
+    body("old_password")
+        .trim()
+        .notEmpty()
+        .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+        .withMessage("Enter a valid password.")
   ]
 }
 validate.checkDetailsData = async (req, res, next) => {

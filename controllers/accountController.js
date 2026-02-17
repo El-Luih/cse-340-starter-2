@@ -156,7 +156,24 @@ accountController.buildAccountDetailsView = async (req, res, next) => {
 ////////////POST Update Account Details////////////
 accountController.updateAccountDetails = async (req, res, next) => {
     let nav = await utilities.getNav()
-    const { account_firstname, account_lastname, account_email, account_id } = req.body
+    //New "old_password" field for security measures
+    const { account_firstname, account_lastname, account_email, account_id, old_password } = req.body
+    const currentData = await accountModel.getAccountByID(account_id)
+    const currentPassword = currentData.account_password
+
+    //Uses bcrypt to compare the "old_password" input to the current password, similar to the login process.
+    //Details form is sticky.
+    if (!await bcrypt.compare(old_password, currentPassword)) {
+        req.flash("error", "Please, check your current password and try again.")
+        return res.status(400).render("account/details", {
+            title: "Account Information",
+            nav,
+            errors: null,
+            account_firstname,
+            account_lastname,
+            account_email
+        })
+    }
 
     const updateResults = await accountModel.updateDetails(
         account_id,
@@ -200,7 +217,10 @@ accountController.updateAccountDetails = async (req, res, next) => {
         res.status(501).render("account/details", {
             title: "Account Information",
             nav,
-            errors: null
+            errors: null,
+            account_firstname,
+            account_lastname,
+            account_email
         })
     }
 }
@@ -213,7 +233,6 @@ accountController.updateAccountPassword = async (req, res, next) => {
     const accountData = await accountModel.getAccountByID(account_id);
 
     //Uses bcrypt to compare the old_password input to the current password, similar to the login process.
-
     if (!await bcrypt.compare(old_password, accountData.account_password)) {
         req.flash("error", "Please, check your current password and try again.")
         return res.status(400).render("account/details", {
@@ -222,9 +241,6 @@ accountController.updateAccountPassword = async (req, res, next) => {
             errors: null
         })
     }
-
-    
-
 
     let hashedPassword
     try {
