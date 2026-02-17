@@ -380,6 +380,9 @@ h1#login-title,
 #add-inventory-title,
 #add-class-title,
 #manage-title,
+#personnel-title,
+#delete-personnel-title,
+#access-personnel-title,
 .title-flavor {
   text-align: center;
 }
@@ -387,6 +390,7 @@ h1#login-title,
 .title-flavor {
   padding: 0;
   margin-bottom: 1rem;
+  font-size: 1.2rem;
 }
 
 /*FLASH MESSAGE STYLING*/
@@ -636,9 +640,105 @@ h1#delete-inventory-title {
 }
 
 /*Account Management Style*/
-
 .button.delete-button.account {
   border-color: var(--primary-color);
+}
+
+/*Personnel Management style*/
+.tables-grid.personnel {
+  display: grid;
+  gap: 2rem 0;
+  width: 98%;
+}
+
+.tables-grid.personnel .table-container h2 {
+  text-align: center;
+}
+
+.tables-grid.personnel .table-container {
+  height: 100%;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tables-grid.personnel .scrolling-table {
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.tables-grid.personnel .scrolling-table table {
+  font-size: 0.8rem;
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.scrolling-table table thead th,
+.scrolling-table table thead td {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.2rem;
+  border: thin solid var(--primary-color);
+}
+
+.scrolling-table table tbody td {
+  border: thin solid var(--primary-color);
+  padding: 10px 0.2rem;
+}
+
+.scrolling-table table tbody tr td:nth-child(4),
+.scrolling-table table tbody tr td:nth-child(5) {
+  padding: 0;
+  background-color: var(--primary-color);
+  border-color: white;
+}
+
+.scrolling-table table tbody tr td:nth-child(5) {
+    border-right-color: var(--primary-color);
+  }
+
+
+
+.scrolling-table table tbody tr:first-child td:nth-child(4),
+.scrolling-table table tbody tr:first-child td:nth-child(5) {
+  border-top-color: var(--primary-color);
+}
+
+.scrolling-table table tbody tr:last-child td:nth-child(4),
+.scrolling-table table tbody tr:last-child td:nth-child(5) {
+  border-bottom-color: var(--primary-color);
+}
+
+.scrolling-table table a {
+  background-color: var(--primary-color);
+  color: white;
+  display: block;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  padding: 10px 0.2rem;
+  align-self: stretch;
+}
+
+.scrolling-table table a:hover {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+/*Access Personnel Style*/
+#access-personnel-form select {
+  margin-bottom: 1rem;
+}
+
+
+
+@media screen and (min-width: 450px) {
+  /*Personnel Management style*/
+  .tables-grid.personnel .scrolling-table table {
+    font-size: 1rem;
+  }
 }
 
 
@@ -661,6 +761,10 @@ h1#delete-inventory-title {
   }
 
   /* Body */
+  .title-flavor {
+    font-size: 1.35rem;
+  }
+
   html {
     padding: 2% 8%;
     background-image: url("/images/site/small_check.jpg");
@@ -806,6 +910,12 @@ h1#delete-inventory-title {
   .url-container .button{
     width: 90%;
   }
+
+  /*Personnel management style*/
+  .scrolling-table table a {
+    font-size: 0.9rem;
+  }
+
 }
 
 /*LARGER screens*/
@@ -855,4 +965,13 @@ h1#delete-inventory-title {
     max-width: 250px;
     margin-top: -2rem;
   }
+
+  /*Personnel Management style*/
+  .tables-grid.personnel {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 2rem;
+    width: 100%;
+  }
+
+
 }

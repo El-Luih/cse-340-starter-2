@@ -120,7 +120,7 @@ accountModel.deleteAccountById = async (account_id) => {
 accountModel.getAccountsByAccountType = async (account_type) => {
     try {
         const result = await pool.query(
-        'SELECT * FROM account WHERE account_type = $1',
+        'SELECT * FROM account WHERE account_type = $1 ORDER BY account_id ASC',
         [account_type])
         return result.rows
     } catch (error) {

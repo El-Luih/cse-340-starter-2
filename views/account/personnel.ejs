@@ -18,24 +18,30 @@
 <div class="tables-grid personnel">
     <div class="table-container">
         <h2>Manage Employees</h2>
-        <table id="employees-table">
+        <div class="scrolling-table">
+            <table id="employees-table">
             <%- locals.employeesTable %>
-        </table>
+            </table>
+        </div>
     </div>
 
     <div class="table-container">
         <h2>Manage Clients</h2>
-        <table id="clients-table">
-            <%- locals.clientsTable %>
-        </table>
+        <div class="scrolling-table">
+            <table id="clients-table">
+                <%- locals.clientsTable %>
+            </table>
+        </div>
     </div>
 
     <% if (locals.account_type === "Owner") { %>
         <div class="table-container">
             <h2>Manage Administrators</h2>
-            <table id="admins-table">
-                <%- locals.adminsTable %>
-            </table>
+            <div class="scrolling-table">
+                <table id="admins-table">
+                    <%- locals.adminsTable %>
+                </table>
+            </div>
         </div>
     <% } %>
     <%# <noscript class="no-js-warning">JavaScript must be enabled to use this page.</noscript> %>
